@@ -6,6 +6,7 @@ interface CompletionScreenProps {
   highScore: number;
   highScorer: string;
   isNewRecord: boolean;
+  playerName?: string;
   onPlayAgain: () => void;
   onHome: () => void;
 }
@@ -16,12 +17,15 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
   highScore,
   highScorer,
   isNewRecord,
+  playerName,
   onPlayAgain,
   onHome,
 }) => {
   const percentage = Math.round((finalScore / totalQuestions) * 100);
   const celebration =
     percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Great!';
+  // Show current player name as high scorer if it's a new record
+  const displayHighScorer = isNewRecord && playerName ? playerName : highScorer;
 
   return (
     <div className="completion-screen">
@@ -54,7 +58,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
         </div>
         {highScore > 0 && (
           <div style={{ textAlign: 'center', marginTop: '12px', fontSize: '12px', color: '#6b7280' }}>
-            by {highScorer}
+            by {displayHighScorer}
           </div>
         )}
         {isNewRecord && (

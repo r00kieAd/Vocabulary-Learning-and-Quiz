@@ -21,7 +21,15 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   const [isFlipped, setIsFlipped] = useState(false);
 
   const currentCard = questions[currentIndex];
+  const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
+
+  const moveToPrevious = () => {
+    if (!isFirst) {
+      setCurrentIndex((prev) => prev - 1);
+      setIsFlipped(false);
+    }
+  };
 
   const moveToNext = () => {
     if (isLast) {
@@ -56,6 +64,13 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
       </div>
 
       <div className="flashcard-actions">
+        <button
+          className="btn-secondary btn-large"
+          onClick={moveToPrevious}
+          disabled={isFirst}
+        >
+          Previous
+        </button>
         <button
           className="btn-primary btn-large"
           onClick={moveToNext}

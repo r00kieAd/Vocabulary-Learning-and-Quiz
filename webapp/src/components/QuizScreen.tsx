@@ -92,9 +92,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         onSelectOption={handleOptionSelect}
       />
       <FeedbackToast
-        message={answeredCorrectly ? 'Correct!' : 'Try again!'}
         type={answeredCorrectly ? 'correct' : 'wrong'}
         visible={showFeedback}
+        score={answeredCorrectly ? score + 1 : score}
       />
     </div>
   );

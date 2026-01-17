@@ -13,6 +13,17 @@ export const PingGate: React.FC = () => {
   const [vocabs, setVocabs] = useState<Vocab[]>([]);
   const [highScore, setHighScore] = useState<Score | null>(null);
 
+  const refreshHighScore = async () => {
+    try {
+      const highScoreResult = await fetchHighScore();
+      if (highScoreResult.status && highScoreResult.data) {
+        setHighScore(highScoreResult.data);
+      }
+    } catch (err) {
+      console.error('Failed to refresh high score:', err);
+    }
+  };
+
   useEffect(() => {
     const initializeApp = async () => {
       try {
@@ -74,6 +85,7 @@ export const PingGate: React.FC = () => {
       highScore={highScore?.high_score || 0}
       highScorer={highScore?.high_scorer || 'None'}
       onScoreInsert={insertScore}
+      onRefreshHighScore={refreshHighScore}
     />
   );
 };

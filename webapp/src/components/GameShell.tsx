@@ -30,6 +30,7 @@ interface GameShellProps {
   highScore: number;
   highScorer: string;
   onScoreInsert: (score: number, name: string) => Promise<any>;
+  onRefreshHighScore?: () => void;
 }
 
 // Shuffle array
@@ -47,6 +48,7 @@ export const GameShell: React.FC<GameShellProps> = ({
   highScore,
   highScorer,
   onScoreInsert,
+  onRefreshHighScore,
 }) => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [selectedMode, setSelectedMode] = useState<'flashcard' | 'mcq' | null>(null);
@@ -149,6 +151,10 @@ export const GameShell: React.FC<GameShellProps> = ({
     setSelectedMode(null);
     setPlayerName('');
     setQuestionCount(0);
+    // Refresh high score data when returning home
+    if (onRefreshHighScore) {
+      onRefreshHighScore();
+    }
   };
 
   const renderScreen = () => {
@@ -194,6 +200,7 @@ export const GameShell: React.FC<GameShellProps> = ({
             highScore={highScore}
             highScorer={highScorer}
             isNewRecord={quizScore > highScore}
+            playerName={playerName}
             onPlayAgain={handleReturnHome}
             onHome={handleReturnHome}
           />
