@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import ProgressHeader from './ProgressHeader';
 
 interface FlashcardQuestion {
   vocabId: number;
@@ -20,23 +19,13 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-  const [knowCount, setKnowCount] = useState(0);
 
   const currentCard = questions[currentIndex];
   const isLast = currentIndex === questions.length - 1;
 
-  const handleKnow = () => {
-    setKnowCount((prev) => prev + 1);
-    moveToNext();
-  };
-
-  const handleDontKnow = () => {
-    moveToNext();
-  };
-
   const moveToNext = () => {
     if (isLast) {
-      onFinish(knowCount);
+      onFinish(0); // Flashcards don't have scoring
     } else {
       setCurrentIndex((prev) => prev + 1);
       setIsFlipped(false);
@@ -45,12 +34,6 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 
   return (
     <div className="quiz-screen flashcard-mode-screen">
-      <ProgressHeader
-        current={currentIndex + 1}
-        total={questions.length}
-        hearts={3}
-      />
-
       <div className="flashcard-container">
         <div
           className={`flashcard ${isFlipped ? 'flipped' : ''}`}
@@ -74,24 +57,12 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 
       <div className="flashcard-actions">
         <button
-          className="btn-secondary btn-large"
-          onClick={handleDontKnow}
-        >
-          Don't Know
-        </button>
-        <button
           className="btn-primary btn-large"
-          onClick={handleKnow}
+          onClick={moveToNext}
         >
-          I Know This ({knowCount})
+          {isLast ? 'Finish' : 'Next'}
         </button>
       </div>
-
-      {isLast && (
-        <div className="quiz-summary">
-          <p>You marked {knowCount} out of {questions.length} as known</p>
-        </div>
-      )}
     </div>
   );
 };

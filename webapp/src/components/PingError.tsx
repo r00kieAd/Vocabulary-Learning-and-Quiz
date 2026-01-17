@@ -8,7 +8,7 @@ interface PingErrorProps {
 export const PingError: React.FC<PingErrorProps> = ({ error, onRetry }) => {
   return (
     <div className="error-panel">
-      <div className="error-icon">⚠️</div>
+      <div className="error-icon">Alert</div>
       <h2>Connection Error</h2>
       <p>{error}</p>
       <button className="btn-primary" onClick={onRetry}>

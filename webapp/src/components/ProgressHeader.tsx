@@ -16,13 +16,15 @@ export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
       <div className="question-counter">
         Question {current} of {total}
       </div>
-      <div className="hearts">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <span key={i} className={`heart ${i < hearts ? '' : 'empty'}`}>
-            ❤️
-          </span>
-        ))}
-      </div>
+      {hearts > 0 && (
+        <div className="hearts">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <span key={i} className={`heart ${i < hearts ? '' : 'empty'}`}>
+              {i < hearts ? 'Heart' : 'Empty'}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

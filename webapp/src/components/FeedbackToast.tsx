@@ -13,7 +13,7 @@ export const FeedbackToast: React.FC<FeedbackToastProps> = ({
 }) => {
   if (!visible) return null;
 
-  const icon = type === 'correct' ? '✓' : '✕';
+  const icon = type === 'correct' ? 'Correct' : 'Wrong';
 
   return (
     <div className={`feedback-toast ${type}`}>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { Vocab } from '../services';
-import TopBar from './TopBar';
 import HomeScreen from './HomeScreen';
 import PlayerNameModal from './PlayerNameModal';
 import QuestionCountModal from './QuestionCountModal';
@@ -14,7 +13,7 @@ interface QuizQuestion {
   vocabId: number;
   word: string;
   wordType: string;
-  correctAnswer: string;
+  correctAnswer: string; // This is now the optionId like "option-0"
   options: Array<{ id: string; text: string }>;
 }
 
@@ -60,7 +59,7 @@ export const GameShell: React.FC<GameShellProps> = ({
 
   // Generate MCQ questions
   const generateMCQQuestions = (count: number): QuizQuestion[] => {
-    if (vocabs.length < 4) return [];
+    if (vocabs.length === 0) return [];
 
     const selectedVocabs = shuffleArray(vocabs).slice(0, count);
 
@@ -69,15 +68,18 @@ export const GameShell: React.FC<GameShellProps> = ({
         vocabs
           .filter((v) => v.id !== vocab.id)
           .map((v) => v.meaning)
-      ).slice(0, 3);
+      ).slice(0, Math.min(3, vocabs.length - 1));
 
       const allOptions = shuffleArray([vocab.meaning, ...wrongAnswers]);
+
+      // Find the index of the correct answer and use its option id
+      const correctAnswerId = `option-${allOptions.indexOf(vocab.meaning)}`;
 
       return {
         vocabId: vocab.id,
         word: vocab.word,
         wordType: vocab.word_type,
-        correctAnswer: vocab.meaning,
+        correctAnswer: correctAnswerId,
         options: allOptions.map((text, idx) => ({
           id: `option-${idx}`,
           text,
@@ -100,7 +102,11 @@ export const GameShell: React.FC<GameShellProps> = ({
 
   const handleModeSelect = (mode: 'flashcard' | 'mcq') => {
     setSelectedMode(mode);
-    setShowNameModal(true);
+    if (mode === 'flashcard') {
+      setShowCountModal(true);
+    } else {
+      setShowNameModal(true);
+    }
   };
 
   const handleNameConfirm = (name: string) => {
@@ -122,6 +128,13 @@ export const GameShell: React.FC<GameShellProps> = ({
   };
 
   const handleQuizEnd = (score: number) => {
+    // Flashcard mode: go directly to home (score is 0)
+    if (selectedMode === 'flashcard') {
+      handleReturnHome();
+      return;
+    }
+
+    // MCQ mode: show completion screen and save score
     setQuizScore(score);
     setCurrentScreen('completion');
 
@@ -145,6 +158,8 @@ export const GameShell: React.FC<GameShellProps> = ({
           <HomeScreen
             onSelectMode={handleModeSelect}
             highScore={highScore}
+            highScorer={highScorer}
+            topScores={vocabs.length > 0 ? [] : []}
           />
         );
 
@@ -192,10 +207,6 @@ export const GameShell: React.FC<GameShellProps> = ({
   return (
     <>
       <div className="game-shell">
-        <TopBar
-          playerName={playerName || 'Guest'}
-          highScore={highScore}
-        />
         {renderScreen()}
       </div>
 

@@ -33,8 +33,20 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     null
   );
   const [score, setScore] = useState(0);
-  const [hearts, setHearts] = useState(3);
   const [showFeedback, setShowFeedback] = useState(false);
+
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="quiz-screen">
+        <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
+          <p>No questions available</p>
+          <button className="btn-primary" onClick={onQuit}>
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
@@ -47,16 +59,11 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
 
     if (isCorrect) {
       setScore((prev) => prev + 1);
-    } else {
-      setHearts((prev) => Math.max(0, prev - 1));
     }
 
     // Move to next question after delay
     setTimeout(() => {
-      if (hearts <= 1 && !isCorrect) {
-        // Game over
-        onQuizEnd(score);
-      } else if (isLastQuestion) {
+      if (isLastQuestion) {
         // Quiz completed
         onQuizEnd(isCorrect ? score + 1 : score);
       } else {
@@ -69,33 +76,12 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
     }, 1500);
   };
 
-  if (hearts === 0) {
-    return (
-      <div className="completion-screen">
-        <div className="celebration">💔</div>
-        <h1>Game Over!</h1>
-        <div className="final-score">
-          <div className="label">Final Score</div>
-          <div className="score">{score} / {questions.length}</div>
-        </div>
-        <div className="action-buttons">
-          <button className="btn-play-again" onClick={() => window.location.reload()}>
-            Try Again
-          </button>
-          <button className="btn-home" onClick={onQuit}>
-            Go Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="quiz-screen">
       <ProgressHeader
         current={currentQuestionIndex + 1}
         total={questions.length}
-        hearts={hearts}
+        hearts={0}
       />
       <QuestionCard
         word={currentQuestion.word}

@@ -21,7 +21,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
 }) => {
   const percentage = Math.round((finalScore / totalQuestions) * 100);
   const celebration =
-    percentage >= 80 ? '🎉' : percentage >= 60 ? '🎊' : '👏';
+    percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Great!';
 
   return (
     <div className="completion-screen">
