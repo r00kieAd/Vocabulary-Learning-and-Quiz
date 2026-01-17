@@ -1,0 +1,7 @@
+{
+    "PING": "/",
+    "VOCABS": "/vocabs/read/",
+    "SCORES": "/scores/all_scores/",
+    "HIGH_SCORE": "/scores/high_score/",
+    "INSERT_SCORE": "/scores/insert_score/"
+}
