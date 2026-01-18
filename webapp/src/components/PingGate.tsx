@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { pingServer, fetchVocabs, fetchScores, fetchHighScore, insertScore, BASE_URL } from '../services';
+import { pingServer, fetchVocabs, fetchScores, fetchHighScore, insertScore } from '../services';
 import type { Vocab, Score } from '../services';
 import FullscreenLoader from './FullscreenLoader';
 import PingError from './PingError';
