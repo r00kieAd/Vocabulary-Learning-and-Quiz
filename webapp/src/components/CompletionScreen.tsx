@@ -1,4 +1,8 @@
 import React from 'react';
+import excellent from '../assets/excellent.png'
+import fair from '../assets/fair.png'
+import great from '../assets/great.png'
+import poor from '../assets/poor.png'
 
 interface CompletionScreenProps {
   finalScore: number;
@@ -23,13 +27,19 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
 }) => {
   const percentage = Math.round((finalScore / totalQuestions) * 100);
   const celebration =
-    percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Fair!';
+    percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : percentage <= 30 ? 'Poor' : 'Fair';
   // Show current player name as high scorer if it's a new record
+  const celebration_img = celebration === 'Excellent!' ? excellent : celebration === 'Good!' ? great : celebration === 'Poor' ? poor : fair;
   const displayHighScorer = isNewRecord && playerName ? playerName : highScorer;
 
   return (
     <div className="completion-screen">
-      <div className="celebration">{celebration}</div>
+      <div className="celebration">
+        <div className="celebration-inner">
+          <span>{celebration}</span>
+          <img src={celebration_img} alt="celebration" />
+        </div>
+      </div>
       <h1>Quiz Completed!</h1>
 
       <div className="final-score">

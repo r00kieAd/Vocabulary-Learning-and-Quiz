@@ -20,7 +20,7 @@
   --accent-primary: #6366f1;
   --accent-secondary: #8b5cf6;
   --accent-pink: #ec4899;
-  --accent-gold: #0F2854;
+  --accent-dark-blue: #0F2854;
 
   /* Game Colors */
   --correct: #22c55e;
@@ -568,6 +568,14 @@ button {
   gap: var(--spacing-lg);
   animation: fadeIn 0.3s ease-out;
 
+  .loading-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   .spinner {
     width: 60px;
     height: 60px;
@@ -992,9 +1000,29 @@ button {
   }
 
   .celebration {
-    font-size: 64px;
-    margin-bottom: var(--spacing-lg);
-    animation: pulse 0.8s ease-in-out infinite;
+
+    .celebration-inner {
+
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      width: 100%;
+      justify-content: center;
+
+      span {
+        font-size: 30px;
+        margin-bottom: var(--spacing-lg);
+        color: var(--accent-pink);
+        font-weight: 500;
+        animation: pulse 0.8s ease-in-out infinite;
+      }
+
+      img {
+        margin-top: 9px;
+        width: 30px;
+        height: 30px;
+      }
+    }
   }
 
   h1 {
@@ -1246,10 +1274,27 @@ button {
     text-align: center;
     color: white;
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: var(--spacing-md);
-      font-weight: 700;
+    .header-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .header-title {
+        font-size: 40px;
+        margin-bottom: var(--spacing-md);
+        font-weight: 700;
+      }
+
+      .header-img {
+        width: 200px;
+        height: auto;
+
+        img {
+          width: inherit;
+          height: inherit;
+        }
+      }
     }
 
     p {
@@ -1332,7 +1377,7 @@ button {
     width: 100%;
 
     .label {
-      color: var(--accent-gold);
+      color: var(--accent-dark-blue);
       font-size: var(--font-sm);
       text-transform: uppercase;
       letter-spacing: 1px;

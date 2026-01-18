@@ -27,7 +27,6 @@ export const PingGate: React.FC = () => {
   useEffect(() => {
     const initializeApp = async () => {
       try {
-        console.log('🔌 API Base URL:', BASE_URL);
         // Step 1: Ping the server
         const pingResult = await pingServer();
         if (!pingResult.status) {

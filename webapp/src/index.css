@@ -16,7 +16,7 @@
   --accent-primary: #6366f1;
   --accent-secondary: #8b5cf6;
   --accent-pink: #ec4899;
-  --accent-gold: #0F2854;
+  --accent-dark-blue: #0F2854;
   /* Game Colors */
   --correct: #22c55e;
   --wrong: #ef4444;
@@ -495,6 +495,13 @@ button:active:not(:disabled) {
   gap: var(--spacing-lg);
   animation: fadeIn 0.3s ease-out;
 }
+.fullscreen-loader .loading-div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .fullscreen-loader .spinner {
   width: 60px;
   height: 60px;
@@ -865,10 +872,24 @@ button:active:not(:disabled) {
     width: auto;
   }
 }
-.completion-screen .celebration {
-  font-size: 64px;
+.completion-screen .celebration .celebration-inner {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+}
+.completion-screen .celebration .celebration-inner span {
+  font-size: 30px;
   margin-bottom: var(--spacing-lg);
+  color: var(--accent-pink);
+  font-weight: 500;
   animation: pulse 0.8s ease-in-out infinite;
+}
+.completion-screen .celebration .celebration-inner img {
+  margin-top: 9px;
+  width: 30px;
+  height: 30px;
 }
 .completion-screen h1 {
   font-size: 28px;
@@ -1068,10 +1089,24 @@ button:active:not(:disabled) {
   text-align: center;
   color: white;
 }
-.home-screen .header h1 {
+.home-screen .header .header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home-screen .header .header-container .header-title {
   font-size: 40px;
   margin-bottom: var(--spacing-md);
   font-weight: 700;
+}
+.home-screen .header .header-container .header-img {
+  width: 200px;
+  height: auto;
+}
+.home-screen .header .header-container .header-img img {
+  width: inherit;
+  height: inherit;
 }
 .home-screen .header p {
   font-size: var(--font-lg);
@@ -1147,7 +1182,7 @@ button:active:not(:disabled) {
   width: 100%;
 }
 .home-screen .high-score-card .label {
-  color: var(--accent-gold);
+  color: var(--accent-dark-blue);
   font-size: var(--font-sm);
   text-transform: uppercase;
   letter-spacing: 1px;

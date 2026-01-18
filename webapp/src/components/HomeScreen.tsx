@@ -1,5 +1,6 @@
 import React from 'react';
 import GradientText from './GradientText';
+import vocab from '../assets/vocab.png';
 
 interface HomeScreenProps {
   onSelectMode: (mode: 'flashcard' | 'mcq') => void;
@@ -17,10 +18,14 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   return (
     <div className="home-screen">
       <div className="header">
-
-        <GradientText animationSpeed={5} className="custom-class">
-          <h1>Vocabulary</h1>
-        </GradientText>
+        <div className="header-container">
+          <div className="header-img">
+            <img src={vocab} alt="" />
+          </div>
+          <GradientText animationSpeed={5} className="custom-class">
+            <h1 className='header-title'>Vocabulary</h1>
+          </GradientText>
+        </div>
         <p>Learn and test your vocabulary skills</p>
       </div>
 
