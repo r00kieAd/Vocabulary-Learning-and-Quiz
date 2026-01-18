@@ -856,8 +856,14 @@ button:active:not(:disabled) {
   box-shadow: var(--shadow-lg);
   text-align: center;
   animation: slideIn 0.3s ease-out;
-  max-width: 500px;
+  width: 500px;
+  max-width: 900px;
   margin: 0 auto;
+}
+@media screen and (max-width: 500px) {
+  .completion-screen {
+    width: auto;
+  }
 }
 .completion-screen .celebration {
   font-size: 64px;
@@ -920,14 +926,27 @@ button:active:not(:disabled) {
 }
 .completion-screen .action-buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
+  justify-content: center;
   gap: var(--spacing-md);
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .completion-screen .action-buttons {
+    flex-direction: column;
+  }
 }
 .completion-screen .action-buttons button {
   padding: var(--spacing-lg);
   border-radius: var(--radius-btn);
   font-weight: 700;
   font-size: var(--font-md);
+  width: 100%;
+}
+@media screen and (max-width: 500px) {
+  .completion-screen .action-buttons button {
+    width: auto;
+  }
 }
 .completion-screen .action-buttons button.btn-play-again {
   background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);

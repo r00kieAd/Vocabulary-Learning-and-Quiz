@@ -23,7 +23,7 @@ export const CompletionScreen: React.FC<CompletionScreenProps> = ({
 }) => {
   const percentage = Math.round((finalScore / totalQuestions) * 100);
   const celebration =
-    percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Great!';
+    percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Fair!';
   // Show current player name as high scorer if it's a new record
   const displayHighScorer = isNewRecord && playerName ? playerName : highScorer;
 

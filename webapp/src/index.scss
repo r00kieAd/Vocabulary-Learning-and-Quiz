@@ -77,11 +77,9 @@ html {
 
 body {
   font-family: var(--font-family);
-  background: linear-gradient(
-    135deg,
-    var(--bg-gradient-start) 0%,
-    var(--bg-gradient-end) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--bg-gradient-start) 0%,
+      var(--bg-gradient-end) 100%);
   color: var(--text-dark);
   line-height: 1.6;
   min-height: 100vh;
@@ -161,11 +159,9 @@ button {
 }
 
 .btn-primary {
-  background: linear-gradient(
-    135deg,
-    var(--accent-primary) 0%,
-    var(--accent-secondary) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--accent-primary) 0%,
+      var(--accent-secondary) 100%);
   color: white;
   padding: var(--spacing-md) var(--spacing-lg);
   font-size: var(--font-md);
@@ -323,16 +319,19 @@ button {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
@@ -343,6 +342,7 @@ button {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -354,10 +354,12 @@ button {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+
   85% {
     opacity: 1;
     transform: translateX(-50%) translateY(-20px);
   }
+
   100% {
     opacity: 0;
     transform: translateX(-50%) translateY(-40px);
@@ -368,19 +370,23 @@ button {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
 
 @keyframes shake {
+
   0%,
   100% {
     transform: translateX(0);
   }
+
   25% {
     transform: translateX(-5px);
   }
+
   75% {
     transform: translateX(5px);
   }
@@ -437,11 +443,9 @@ button {
 }
 
 .bg-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--bg-gradient-start) 0%,
-    var(--bg-gradient-end) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--bg-gradient-start) 0%,
+      var(--bg-gradient-end) 100%);
 }
 
 .rounded {
@@ -517,6 +521,7 @@ button {
   }
 
   .grid {
+
     &.cols-2,
     &.cols-3 {
       grid-template-columns: 1fr;
@@ -557,11 +562,9 @@ button {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    var(--bg-gradient-start) 0%,
-    var(--bg-gradient-end) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--bg-gradient-start) 0%,
+      var(--bg-gradient-end) 100%);
   gap: var(--spacing-lg);
   animation: fadeIn 0.3s ease-out;
 
@@ -647,11 +650,9 @@ button {
     }
 
     .score-badge {
-      background: linear-gradient(
-        135deg,
-        var(--accent-primary) 0%,
-        var(--accent-secondary) 100%
-      );
+      background: linear-gradient(135deg,
+          var(--accent-primary) 0%,
+          var(--accent-secondary) 100%);
       color: white;
       padding: var(--spacing-sm) var(--spacing-md);
       border-radius: var(--radius-btn);
@@ -739,11 +740,9 @@ button {
   }
 
   .gradient-bg {
-    background: linear-gradient(
-      135deg,
-      var(--accent-primary) 0%,
-      var(--accent-secondary) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--accent-primary) 0%,
+        var(--accent-secondary) 100%);
     padding: var(--spacing-xl);
     border-radius: var(--radius-card);
     display: flex;
@@ -984,8 +983,13 @@ button {
   box-shadow: var(--shadow-lg);
   text-align: center;
   animation: slideIn 0.3s ease-out;
-  max-width: 500px;
+  width: 500px;
+  max-width: 900px;
   margin: 0 auto;
+
+  @media screen and (max-width: 500px) {
+    width: auto;
+  }
 
   .celebration {
     font-size: 64px;
@@ -1000,11 +1004,9 @@ button {
   }
 
   .final-score {
-    background: linear-gradient(
-      135deg,
-      var(--accent-primary) 0%,
-      var(--accent-secondary) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--accent-primary) 0%,
+        var(--accent-secondary) 100%);
     color: white;
     padding: var(--spacing-lg);
     border-radius: var(--radius-card);
@@ -1066,21 +1068,30 @@ button {
 
   .action-buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
+    justify-content: center;
     gap: var(--spacing-md);
+    width: 100%;
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+    }
 
     button {
       padding: var(--spacing-lg);
       border-radius: var(--radius-btn);
       font-weight: 700;
       font-size: var(--font-md);
+      width: 100%;
+
+      @media screen and (max-width: 500px) {
+        width: auto;
+      }
 
       &.btn-play-again {
-        background: linear-gradient(
-          135deg,
-          var(--accent-primary) 0%,
-          var(--accent-secondary) 100%
-        );
+        background: linear-gradient(135deg,
+            var(--accent-primary) 0%,
+            var(--accent-secondary) 100%);
         color: white;
 
         &:hover {
@@ -1124,11 +1135,9 @@ button {
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      background: linear-gradient(
-        135deg,
-        var(--accent-primary) 0%,
-        var(--accent-secondary) 100%
-      );
+      background: linear-gradient(135deg,
+          var(--accent-primary) 0%,
+          var(--accent-secondary) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1167,11 +1176,9 @@ button {
       }
 
       &.highlight {
-        background: linear-gradient(
-          135deg,
-          rgba(99, 102, 241, 0.1) 0%,
-          rgba(139, 92, 246, 0.1) 100%
-        );
+        background: linear-gradient(135deg,
+            rgba(99, 102, 241, 0.1) 0%,
+            rgba(139, 92, 246, 0.1) 100%);
       }
     }
   }
@@ -1182,12 +1189,10 @@ button {
    ======================================== */
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.1) 25%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0.1) 75%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.1) 25%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0.1) 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
   border-radius: var(--radius-card);
@@ -1197,6 +1202,7 @@ button {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -1761,4 +1767,3 @@ button {
   color: var(--text-muted);
   box-shadow: var(--shadow-soft);
 }
-
