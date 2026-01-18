@@ -205,7 +205,3 @@ Components are organized by responsibility:
 2. Make your changes
 3. Test thoroughly
 4. Submit a pull request
-
-## License
-
-This project is part of the Vocabulary Learning and Quiz application suite.
