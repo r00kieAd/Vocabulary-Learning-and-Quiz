@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { Vocab } from '../services';
 import HomeScreen from './HomeScreen';
 import PlayerNameModal from './PlayerNameModal';
 import QuestionCountModal from './QuestionCountModal';
+import FlashcardChoiceModal from './FlashcardChoiceModal';
 import QuizScreen from './QuizScreen';
 import FlashcardScreen from './FlashcardScreen';
 import CompletionScreen from './CompletionScreen';
@@ -54,16 +55,39 @@ export const GameShell: React.FC<GameShellProps> = ({
   const [selectedMode, setSelectedMode] = useState<'flashcard' | 'mcq' | null>(null);
   const [showNameModal, setShowNameModal] = useState(false);
   const [showCountModal, setShowCountModal] = useState(false);
+  const [showChoiceModal, setShowChoiceModal] = useState(false);
   const [playerName, setPlayerName] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [quizScore, setQuizScore] = useState(0);
   const [totalQuestionsInQuiz, setTotalQuestionsInQuiz] = useState(0);
+  const [learnedWords, setLearnedWords] = useState<number[]>([]);
+  const [mcqMode, setMcqMode] = useState<'flashcard' | 'random'>('random');
+
+  // Clear learned words on page reload
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      setLearnedWords([]);
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, []);
 
   // Generate MCQ questions
   const generateMCQQuestions = (count: number): QuizQuestion[] => {
     if (vocabs.length === 0) return [];
 
-    const selectedVocabs = shuffleArray(vocabs).slice(0, count);
+    let selectedVocabs: Vocab[];
+    
+    // If MCQ mode is 'flashcard', use all learned words
+    if (mcqMode === 'flashcard' && learnedWords.length > 0) {
+      selectedVocabs = vocabs.filter((v) => learnedWords.includes(v.id));
+      console.log('MCQ Flashcard Mode: filtering to learned words:', learnedWords, 'Found vocabs:', selectedVocabs.length);
+      selectedVocabs = shuffleArray(selectedVocabs);
+    } else {
+      // Random mode: select 'count' random vocabs from all
+      console.log('MCQ Random Mode: selecting', count, 'from', vocabs.length, 'total vocabs');
+      selectedVocabs = shuffleArray(vocabs).slice(0, Math.min(count, vocabs.length));
+    }
 
     return selectedVocabs.map((vocab) => {
       const wrongAnswers = shuffleArray(
@@ -114,7 +138,35 @@ export const GameShell: React.FC<GameShellProps> = ({
   const handleNameConfirm = (name: string) => {
     setPlayerName(name);
     setShowNameModal(false);
-    setShowCountModal(true);
+    setMcqMode('random'); // Reset to random for new quiz
+    
+    console.log('MCQ Name Confirmed:', name, 'Learned Words:', learnedWords);
+    
+    // Show choice modal if there are learned words, otherwise show count modal
+    if (learnedWords.length > 0) {
+      console.log('Showing choice modal with', learnedWords.length, 'learned words');
+      setShowChoiceModal(true);
+    } else {
+      console.log('No learned words, showing count modal');
+      setShowCountModal(true);
+    }
+  };
+
+  const handleChoiceConfirm = (choice: 'flashcard' | 'random') => {
+    setShowChoiceModal(false);
+    
+    if (choice === 'flashcard') {
+      // Use all learned words - set count and go directly to quiz
+      const count = learnedWords.length;
+      setQuestionCount(count);
+      setTotalQuestionsInQuiz(count);
+      setMcqMode('flashcard');
+      setCurrentScreen('quiz');
+    } else {
+      // Random mode - show count modal
+      setMcqMode('random');
+      setShowCountModal(true);
+    }
   };
 
   const handleCountConfirm = (count: number) => {
@@ -125,6 +177,10 @@ export const GameShell: React.FC<GameShellProps> = ({
     if (selectedMode === 'flashcard') {
       setCurrentScreen('flashcard');
     } else {
+      // For MCQ - if mcqMode wasn't set by choice modal, default to random
+      if (mcqMode === 'flashcard') {
+        setMcqMode('random');
+      }
       setCurrentScreen('quiz');
     }
   };
@@ -139,6 +195,9 @@ export const GameShell: React.FC<GameShellProps> = ({
     // MCQ mode: show completion screen and save score
     setQuizScore(score);
     setCurrentScreen('completion');
+    // Clear learned words after quiz finishes
+    setLearnedWords([]);
+    setMcqMode('random');
 
     // Save score if it's higher than current high score
     if (score > highScore) {
@@ -151,6 +210,9 @@ export const GameShell: React.FC<GameShellProps> = ({
     setSelectedMode(null);
     setPlayerName('');
     setQuestionCount(0);
+    // DO NOT clear learned words here - user needs them for MCQ after flashcards!
+    // Only reset MCQ mode to random for next session
+    setMcqMode('random');
     // Refresh high score data when returning home
     if (onRefreshHighScore) {
       onRefreshHighScore();
@@ -177,6 +239,7 @@ export const GameShell: React.FC<GameShellProps> = ({
               questions={quizQuestions}
               onQuizEnd={handleQuizEnd}
               onQuit={handleReturnHome}
+              quizMode={mcqMode}
             />
           );
         }
@@ -188,6 +251,9 @@ export const GameShell: React.FC<GameShellProps> = ({
             <FlashcardScreen
               questions={flashcardQuestions}
               onFinish={handleQuizEnd}
+              onWordLearned={(vocabId) => {
+                setLearnedWords((prev) => [...new Set([...prev, vocabId])]);
+              }}
             />
           );
         }
@@ -221,6 +287,16 @@ export const GameShell: React.FC<GameShellProps> = ({
         isOpen={showNameModal}
         onConfirm={handleNameConfirm}
         onCancel={() => setShowNameModal(false)}
+      />
+
+      <FlashcardChoiceModal
+        isOpen={showChoiceModal}
+        onChoose={handleChoiceConfirm}
+        onCancel={() => {
+          setShowChoiceModal(false);
+          setShowNameModal(true);
+        }}
+        learnedWordsCount={learnedWords.length}
       />
 
       <QuestionCountModal

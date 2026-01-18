@@ -20,12 +20,14 @@ interface QuizScreenProps {
   questions: QuizQuestion[];
   onQuizEnd: (score: number) => void;
   onQuit: () => void;
+  quizMode?: 'flashcard' | 'random';
 }
 
 export const QuizScreen: React.FC<QuizScreenProps> = ({
   questions,
   onQuizEnd,
   onQuit,
+  quizMode = 'random',
 }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -82,6 +84,7 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         current={currentQuestionIndex + 1}
         total={questions.length}
         hearts={0}
+        quizMode={quizMode}
       />
       <QuestionCard
         word={currentQuestion.word}

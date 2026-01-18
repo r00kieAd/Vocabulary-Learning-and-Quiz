@@ -830,6 +830,18 @@ button {
     .question-counter {
       font-weight: 600;
       color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+
+      .mode-badge {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: var(--font-sm);
+        font-weight: 600;
+      }
     }
 
     .hearts {
@@ -1528,6 +1540,99 @@ button {
       cursor: pointer;
       transition: all 0.2s ease;
     }
+  }
+}
+
+.modal-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-lg);
+  max-width: 450px;
+  width: 90%;
+  animation: slideIn 0.3s ease-out;
+  overflow: hidden;
+
+  .modal-header {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: white;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: none;
+
+    h2 {
+      margin: 0;
+      font-size: var(--font-lg);
+    }
+  }
+
+  .modal-body {
+    padding: var(--spacing-xl);
+  }
+
+  .modal-subtitle {
+    color: var(--text-muted);
+    font-size: var(--font-sm);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+  }
+
+  .modal-footer {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: flex-end;
+  }
+}
+
+.choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.choice-btn {
+  background: white;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  font-family: var(--font-family);
+
+  &:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  &.flashcard-choice {
+    border-color: var(--accent-primary);
+    background: rgba(99, 102, 241, 0.05);
+
+    .choice-title {
+      color: var(--accent-primary);
+    }
+  }
+
+  &.random-choice {
+    border-color: var(--accent-secondary);
+    background: rgba(139, 92, 246, 0.05);
+
+    .choice-title {
+      color: var(--accent-secondary);
+    }
+  }
+
+  .choice-title {
+    font-weight: 700;
+    font-size: var(--font-md);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .choice-desc {
+    color: var(--text-muted);
+    font-size: var(--font-sm);
   }
 }
 

@@ -4,16 +4,19 @@ interface ProgressHeaderProps {
   current: number;
   total: number;
   hearts: number;
+  quizMode?: 'flashcard' | 'random';
 }
 
 export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
   current,
   total,
   hearts,
+  quizMode = 'random',
 }) => {
   return (
     <div className="progress-header">
       <div className="question-counter">
+        {quizMode === 'flashcard' && <span className="mode-badge">📚 Learned Words</span>}
         Question {current} of {total}
       </div>
       {hearts > 0 && (

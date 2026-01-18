@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface FlashcardQuestion {
   vocabId: number;
@@ -11,18 +11,33 @@ interface FlashcardQuestion {
 interface FlashcardScreenProps {
   questions: FlashcardQuestion[];
   onFinish: (score: number) => void;
+  onWordLearned?: (vocabId: number) => void;
 }
 
 export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   questions,
   onFinish,
+  onWordLearned,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const trackedWordsRef = useRef<Set<number>>(new Set());
 
   const currentCard = questions[currentIndex];
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
+
+  // Track word when card is viewed (index changes)
+  useEffect(() => {
+    if (currentCard && !trackedWordsRef.current.has(currentCard.vocabId)) {
+      trackedWordsRef.current.add(currentCard.vocabId);
+      console.log('Card viewed:', currentCard.word, 'ID:', currentCard.vocabId);
+      if (onWordLearned) {
+        onWordLearned(currentCard.vocabId);
+        console.log('onWordLearned callback called for:', currentCard.word);
+      }
+    }
+  }, [currentIndex, currentCard, onWordLearned]);
 
   const moveToPrevious = () => {
     if (!isFirst) {
