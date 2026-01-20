@@ -85,6 +85,28 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         )}
       </div>
+
+      {/* Debug: Show learned words from localStorage - COMMENTED OUT */}
+      {/* <div style={{ 
+        marginTop: '20px', 
+        padding: '10px', 
+        background: '#f0f0f0', 
+        borderRadius: '4px',
+        fontSize: '12px',
+        textAlign: 'center'
+      }}>
+        <div style={{ color: '#666' }}>
+          Learned words stored: {(() => {
+            try {
+              const stored = localStorage.getItem('vocabLearned');
+              const words = stored ? JSON.parse(stored) : [];
+              return `${words.length} words`;
+            } catch {
+              return 'Error loading';
+            }
+          })()}
+        </div>
+      </div> */}
     </div>
   );
 };

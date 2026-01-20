@@ -12,12 +12,18 @@ interface FlashcardScreenProps {
   questions: FlashcardQuestion[];
   onFinish: (score: number) => void;
   onWordLearned?: (vocabId: number) => void;
+  learnedCount?: number;
+  totalCount?: number;
+  onClearLearned?: () => void;
 }
 
 export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   questions,
   onFinish,
   onWordLearned,
+  learnedCount = 0,
+  totalCount = 0,
+  onClearLearned,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
@@ -27,17 +33,44 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   const isFirst = currentIndex === 0;
   const isLast = currentIndex === questions.length - 1;
 
-  // Track word when card is viewed (index changes)
+  // Reset tracking ref when new session starts (questions change)
   useEffect(() => {
-    if (currentCard && !trackedWordsRef.current.has(currentCard.vocabId)) {
+    trackedWordsRef.current = new Set();
+    // console.log('Fresh flashcard session started - tracking ref reset');
+  }, [questions.length]);
+
+  // Track word when card is FLIPPED (meaning revealed) - not just viewed
+  useEffect(() => {
+    if (currentCard && isFlipped && !trackedWordsRef.current.has(currentCard.vocabId)) {
       trackedWordsRef.current.add(currentCard.vocabId);
-      console.log('Card viewed:', currentCard.word, 'ID:', currentCard.vocabId);
+      // console.log('Card FLIPPED and learned:', currentCard.word, 'ID:', currentCard.vocabId);
       if (onWordLearned) {
         onWordLearned(currentCard.vocabId);
-        console.log('onWordLearned callback called for:', currentCard.word);
+        // console.log('onWordLearned callback called for:', currentCard.word);
       }
     }
-  }, [currentIndex, currentCard, onWordLearned]);
+  }, [currentIndex, currentCard, isFlipped, onWordLearned]);
+
+  // Handle empty questions
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="quiz-screen flashcard-mode-screen">
+        <div className="card" style={{ textAlign: 'center', padding: '40px' }}>
+          <h2>All words learned!</h2>
+          <p>You've learned all available words. Clear learned words to start fresh.</p>
+          {onClearLearned && (
+            <button className="btn-primary" onClick={onClearLearned}>
+              Clear Learned Words & Go Home
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentCard) {
+    return null;
+  }
 
   const moveToPrevious = () => {
     if (!isFirst) {
@@ -57,6 +90,23 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 
   return (
     <div className="quiz-screen flashcard-mode-screen">
+      <div className="flashcard-header">
+        <div className="progress-info">
+          <span className="progress-badge">{learnedCount} Learned</span>
+          <span className="progress-text">Word {currentIndex + 1} of {questions.length}</span>
+        </div>
+        {onClearLearned && (
+          <button className="btn-clear-learned" onClick={onClearLearned}>
+            🔄 Clear & Home
+          </button>
+        )}
+      </div>
+      <div className="progress-bar-container">
+        <div className="progress-bar">
+          <div className="progress-fill" style={{ width: `${(learnedCount / (totalCount || questions.length)) * 100}%` }}></div>
+        </div>
+        <span className="progress-label">{learnedCount} / {totalCount || questions.length} words learned</span>
+      </div>
       <div className="flashcard-container">
         <div
           className={`flashcard ${isFlipped ? 'flipped' : ''}`}
@@ -80,17 +130,17 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 
       <div className="flashcard-actions">
         <button
-          className="btn-secondary btn-large"
+          className="btn-secondary btn-small"
           onClick={moveToPrevious}
           disabled={isFirst}
         >
-          Previous
+          ← Previous
         </button>
         <button
-          className="btn-primary btn-large"
+          className="btn-primary btn-small"
           onClick={moveToNext}
         >
-          {isLast ? 'Finish' : 'Next'}
+          {isLast ? 'Finish' : 'Next'} →
         </button>
       </div>
     </div>

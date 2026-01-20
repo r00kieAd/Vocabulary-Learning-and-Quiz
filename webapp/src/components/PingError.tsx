@@ -1,4 +1,5 @@
 import React from 'react';
+import err_img from '../assets/error.png'
 
 interface PingErrorProps {
   error: string;
@@ -8,7 +9,9 @@ interface PingErrorProps {
 export const PingError: React.FC<PingErrorProps> = ({ error, onRetry }) => {
   return (
     <div className="error-panel">
-      <div className="error-icon">Alert</div>
+      <div className="error-icon">
+        <img src={err_img} alt="" />
+      </div>
       <h2>Connection Error</h2>
       <p>{error}</p>
       <button className="btn-primary" onClick={onRetry}>

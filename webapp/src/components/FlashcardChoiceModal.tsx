@@ -31,7 +31,7 @@ export const FlashcardChoiceModal: React.FC<FlashcardChoiceModalProps> = ({
             <button
               className="choice-btn flashcard-choice"
               onClick={() => {
-                console.log('User chose: Practice Learned Words');
+                // console.log('User chose: Practice Learned Words');
                 onChoose('flashcard');
               }}
             >
@@ -44,7 +44,7 @@ export const FlashcardChoiceModal: React.FC<FlashcardChoiceModalProps> = ({
             <button
               className="choice-btn random-choice"
               onClick={() => {
-                console.log('User chose: Random Words');
+                // console.log('User chose: Random Words');
                 onChoose('random');
               }}
             >
