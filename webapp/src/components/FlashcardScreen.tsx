@@ -114,7 +114,7 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
         {!isChatOpen && (
           <>
             <div className="progress-info">
-              <span className="progress-badge">{learnedCount} Learned</span>
+              <span className="progress-badge">{learnedCount}</span>
               <span className="progress-text">Word {currentIndex + 1} of {questions.length}</span>
             </div>
             <div className="header-buttons">
@@ -123,11 +123,11 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
                 onClick={() => setIsChatOpen(true)}
                 title="Ask AI about this word"
               >
-                🤖 Ask AI
+                Ask AI
               </button>
               {onClearLearned && (
                 <button className="btn-clear-learned" onClick={onClearLearned}>
-                  🔄 Clear & Home
+                  Clear & Home
                 </button>
               )}
             </div>
