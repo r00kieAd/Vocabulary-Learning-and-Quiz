@@ -4,6 +4,20 @@ import axios, { AxiosError } from 'axios';
    TYPES
    ======================================== */
 
+export interface AIChat {
+  prompt: string;
+  word: string;
+  word_type: string;
+  meaning: string;
+  example: string;
+  instruction: string;
+}
+
+export interface AIChatResponse {
+  received_prompt: string;
+  answer: string;
+}
+
 export interface Vocab {
   id: number;
   word: string;

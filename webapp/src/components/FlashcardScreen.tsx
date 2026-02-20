@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { AIChatPanel } from './AIChatPanel';
 
 interface FlashcardQuestion {
   vocabId: number;
@@ -27,7 +28,10 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [shouldShrink, setShouldShrink] = useState(false);
   const trackedWordsRef = useRef<Set<number>>(new Set());
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const currentCard = questions[currentIndex];
   const isFirst = currentIndex === 0;
@@ -38,6 +42,19 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
     trackedWordsRef.current = new Set();
     // console.log('Fresh flashcard session started - tracking ref reset');
   }, [questions.length]);
+
+  // Check if flashcard needs to shrink when chat opens
+  useEffect(() => {
+    if (isChatOpen && containerRef.current) {
+      const viewportHeight = window.innerHeight;
+      // Estimate required space: header (~80px) + progress bar (~60px) + flashcard (~300px) + chat panel (~350px) + gaps (~60px)
+      const requiredSpace = 80 + 60 + 300 + 350 + 60;
+      const needsShrinking = requiredSpace > viewportHeight;
+      setShouldShrink(needsShrinking);
+    } else {
+      setShouldShrink(false);
+    }
+  }, [isChatOpen]);
 
   // Track word when card is FLIPPED (meaning revealed) - not just viewed
   useEffect(() => {
@@ -89,16 +106,41 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   };
 
   return (
-    <div className="quiz-screen flashcard-mode-screen">
-      <div className="flashcard-header">
-        <div className="progress-info">
-          <span className="progress-badge">{learnedCount} Learned</span>
-          <span className="progress-text">Word {currentIndex + 1} of {questions.length}</span>
-        </div>
-        {onClearLearned && (
-          <button className="btn-clear-learned" onClick={onClearLearned}>
-            🔄 Clear & Home
-          </button>
+    <div 
+      ref={containerRef}
+      className={`quiz-screen flashcard-mode-screen ${isChatOpen && shouldShrink ? 'shrink-for-chat' : ''}`}
+    >
+      <div className={`flashcard-header ${isChatOpen ? 'chat-open' : ''}`}>
+        {!isChatOpen && (
+          <>
+            <div className="progress-info">
+              <span className="progress-badge">{learnedCount}</span>
+              <span className="progress-text">Word {currentIndex + 1} of {questions.length}</span>
+            </div>
+            <div className="header-buttons">
+              <button
+                className="btn-ask-ai"
+                onClick={() => setIsChatOpen(true)}
+                title="Ask AI about this word"
+              >
+                Ask AI
+              </button>
+              {onClearLearned && (
+                <button className="btn-clear-learned" onClick={onClearLearned}>
+                  Clear & Home
+                </button>
+              )}
+            </div>
+          </>
+        )}
+        {isChatOpen && (
+          <AIChatPanel
+            word={currentCard.word}
+            wordType={currentCard.wordType}
+            meaning={currentCard.meaning}
+            example={currentCard.example}
+            onClose={() => setIsChatOpen(false)}
+          />
         )}
       </div>
       <div className="progress-bar-container">
