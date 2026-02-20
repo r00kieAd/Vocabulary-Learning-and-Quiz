@@ -1,6 +1,6 @@
 import API from '../config/endpoints.json';
 import { axiosInstance, handleError } from './types';
-import type { ApiResponse, AIChat, AIChatResponse } from './types';
+import type { ApiResponse, AIChatResponse } from './types';
 
 
 export async function getAnswers(
