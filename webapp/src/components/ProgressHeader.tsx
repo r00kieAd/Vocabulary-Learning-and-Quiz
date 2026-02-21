@@ -16,7 +16,7 @@ export const ProgressHeader: React.FC<ProgressHeaderProps> = ({
   return (
     <div className="progress-header">
       <div className="question-counter">
-        {quizMode === 'flashcard' && <span className="mode-badge">📚 Learned Words</span>}
+        {quizMode === 'flashcard' && <span className="mode-badge">Learned Words</span>}
         Question {current} of {total}
       </div>
       {hearts > 0 && (

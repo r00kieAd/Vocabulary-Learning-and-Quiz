@@ -43,13 +43,20 @@ export const AIChatPanel: React.FC<AIChatPanelProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputTextAreaRef = useRef<HTMLTextAreaElement>(null);
+  const chatMessagesRef = useRef<HTMLDivElement>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
+  // Scroll to start of new messages within chat panel only
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length > 0 && chatMessagesRef.current) {
+      // Get all message elements
+      const messageElements = chatMessagesRef.current.querySelectorAll('.chat-message');
+      if (messageElements.length > 0) {
+        const lastMessage = messageElements[messageElements.length - 1] as HTMLElement;
+        // Scroll the chat container to the last message's position
+        const scrollPosition = lastMessage.offsetTop - chatMessagesRef.current.offsetTop;
+        chatMessagesRef.current.scrollTop = scrollPosition;
+      }
+    }
   }, [messages]);
 
   // Auto-resize textarea
@@ -159,7 +166,7 @@ export const AIChatPanel: React.FC<AIChatPanelProps> = ({
         ))}
       </div>
 
-      <div className="chat-messages">
+      <div className="chat-messages" ref={chatMessagesRef}>
         {messages.length === 0 && (
           <div className="chat-empty-state">
             <p>Ask AI a question about this word...</p>
@@ -195,7 +202,7 @@ export const AIChatPanel: React.FC<AIChatPanelProps> = ({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleSendMessage}
-          placeholder="Type your question or use quick options above..."
+          placeholder="Type your curiosity..."
           className="chat-input"
           disabled={isLoading}
           rows={1}

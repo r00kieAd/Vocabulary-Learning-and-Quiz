@@ -29,9 +29,8 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [shouldShrink, setShouldShrink] = useState(false);
   const trackedWordsRef = useRef<Set<number>>(new Set());
-  const containerRef = useRef<HTMLDivElement>(null);
+  const chatPanelRef = useRef<HTMLDivElement>(null);
 
   const currentCard = questions[currentIndex];
   const isFirst = currentIndex === 0;
@@ -43,16 +42,14 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
     // console.log('Fresh flashcard session started - tracking ref reset');
   }, [questions.length]);
 
-  // Check if flashcard needs to shrink when chat opens
+  // Scroll chat panel into full view on mobile when chat opens
   useEffect(() => {
-    if (isChatOpen && containerRef.current) {
-      const viewportHeight = window.innerHeight;
-      // Estimate required space: header (~80px) + progress bar (~60px) + flashcard (~300px) + chat panel (~350px) + gaps (~60px)
-      const requiredSpace = 80 + 60 + 300 + 350 + 60;
-      const needsShrinking = requiredSpace > viewportHeight;
-      setShouldShrink(needsShrinking);
-    } else {
-      setShouldShrink(false);
+    if (isChatOpen && chatPanelRef.current) {
+      // Small delay to ensure DOM is updated
+      const timer = setTimeout(() => {
+        chatPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [isChatOpen]);
 
@@ -106,16 +103,13 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   };
 
   return (
-    <div 
-      ref={containerRef}
-      className={`quiz-screen flashcard-mode-screen ${isChatOpen && shouldShrink ? 'shrink-for-chat' : ''}`}
-    >
+    <div className="quiz-screen flashcard-mode-screen">
       <div className={`flashcard-header ${isChatOpen ? 'chat-open' : ''}`}>
         {!isChatOpen && (
           <>
             <div className="progress-info">
-              <span className="progress-badge">{learnedCount}</span>
-              <span className="progress-text">Word {currentIndex + 1} of {questions.length}</span>
+              <span className="progress-badge"><span className="progress-text">Word {currentIndex + 1} of {questions.length}</span></span>
+              
             </div>
             <div className="header-buttons">
               <button
@@ -134,13 +128,15 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
           </>
         )}
         {isChatOpen && (
-          <AIChatPanel
-            word={currentCard.word}
-            wordType={currentCard.wordType}
-            meaning={currentCard.meaning}
-            example={currentCard.example}
-            onClose={() => setIsChatOpen(false)}
-          />
+          <div ref={chatPanelRef}>
+            <AIChatPanel
+              word={currentCard.word}
+              wordType={currentCard.wordType}
+              meaning={currentCard.meaning}
+              example={currentCard.example}
+              onClose={() => setIsChatOpen(false)}
+            />
+          </div>
         )}
       </div>
       <div className="progress-bar-container">
