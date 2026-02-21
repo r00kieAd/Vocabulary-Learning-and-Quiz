@@ -6,35 +6,16 @@ A modern, full-stack web application for learning and testing vocabulary skills 
 
 A comprehensive vocabulary learning platform that combines interactive flashcards and multiple-choice quizzes with AI-powered learning assistance. The application helps users expand their vocabulary through active and passive learning modes, with integrated AI chat functionality for real-time word explanations and related vocabulary discovery.
 
-## Project Status
-
-This project is still in progress. Current implementation includes:
-- Fully functional frontend with React 19 and TypeScript
-- Complete user interface with responsive design
-- API integration layer with error handling
-- Two learning modes (flashcards and MCQ quiz)
-- Score tracking and leaderboard system
-- Comprehensive SCSS design system with tokens
-
-Planned future enhancements:
-- Backend integration testing with live data
-- Additional vocabulary categories and difficulty levels
-- User authentication and profiles
-- Advanced analytics and progress tracking
-- Performance optimization and caching strategies
-
 ## Technology Stack
 
-### Frontend
+### Frontend Stack
 - React 19 with TypeScript
 - Vite 7.3.1 for build and development
 - SCSS with CSS custom properties for styling
 - Axios for HTTP communication
 
-### Backend Requirements
-- RESTful API endpoints for vocabulary data management
-- Score and leaderboard persistence
-- AI integration for the chat assistant feature
+### Backend Stack
+- [English Vocab Backend](https://github.com/r00kieAd/english_vocab_backend)
 
 ## Key Features
 

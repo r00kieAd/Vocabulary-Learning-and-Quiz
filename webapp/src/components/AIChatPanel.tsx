@@ -24,9 +24,9 @@ interface PredefinedOption {
 }
 
 const predefinedOptions: PredefinedOption[] = [
-  { label: 'Get Synonyms', prompt: 'Provide synonyms for this word' },
-  { label: 'Get Antonyms', prompt: 'Provide antonyms for this word' },
-  { label: 'Get Examples', prompt: 'Provide more example sentences using this word' },
+  { label: 'Synonyms', prompt: 'Provide synonyms for this word' },
+  { label: 'Antonyms', prompt: 'Provide antonyms for this word' },
+  { label: 'Examples', prompt: 'Provide more example sentences using this word' },
   { label: 'Translate', prompt: null, requiresInput: true },
   { label: 'Pronounce', prompt: 'How to pronounce this word? Provide phonetic pronunciation and guides.' },
 ];
@@ -147,7 +147,7 @@ export const AIChatPanel: React.FC<AIChatPanelProps> = ({
   return (
     <div className="ai-chat-panel">
       <div className="chat-header">
-        <span className="chat-title">Ask AI about "{word}"</span>
+        <span className="chat-title"><i className="fa-solid fa-wand-magic-sparkles"></i> "{word}"</span>
         <button className="btn-close" onClick={onClose} aria-label="Close chat">
           ✕
         </button>
@@ -169,7 +169,7 @@ export const AIChatPanel: React.FC<AIChatPanelProps> = ({
       <div className="chat-messages" ref={chatMessagesRef}>
         {messages.length === 0 && (
           <div className="chat-empty-state">
-            <p>Ask AI a question about this word...</p>
+            <p>Ask AI a question about this {wordType}...</p>
           </div>
         )}
         {messages.map((message) => (
