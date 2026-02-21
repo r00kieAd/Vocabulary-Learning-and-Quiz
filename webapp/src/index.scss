@@ -30,6 +30,7 @@
   /* Neutral */
   --text-dark: #1f2937;
   --text-muted: #6b7280;
+  --text-faded: #e5e7eb;
   --border-light: #e5e7eb;
   --bg-light: #f9fafb;
 
@@ -1975,6 +1976,7 @@ button {
       font-size: var(--font-md);
       font-weight: 600;
       margin: 0;
+      color: var(--text-faded);
     }
 
     .btn-close {

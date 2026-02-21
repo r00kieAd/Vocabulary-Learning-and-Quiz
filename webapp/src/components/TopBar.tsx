@@ -13,10 +13,10 @@ export const TopBar: React.FC<TopBarProps> = ({
 }) => {
   return (
     <div className="top-bar">
-      <div className="logo">📚</div>
+      <div className="logo"><i className="fa-solid fa-book"></i></div>
       <div className="player-info">
         <span className="username">{playerName}</span>
-        <span className="score-badge">⭐ {highScore}</span>
+        <span className="score-badge"><i className="fa-solid fa-star"></i> {highScore}</span>
       </div>
       <div className="action-buttons">
         {onViewScores && (
