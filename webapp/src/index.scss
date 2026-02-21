@@ -1726,7 +1726,7 @@ button {
     flex-direction: column;
     align-items: stretch;
     padding: var(--spacing-md);
-    min-height: auto;
+    gap: var(--spacing-md);
   }
 
   .progress-info {
@@ -1745,7 +1745,7 @@ button {
 
     .progress-text {
       font-size: var(--font-md);
-      color: var(--text-muted);
+      color: white;
       font-weight: 500;
     }
   }
@@ -1830,11 +1830,6 @@ button {
   perspective: 1000px;
   min-height: 300px;
   transition: all 0.4s ease;
-
-  .flashcard-mode-screen.shrink-for-chat & {
-    min-height: 200px;
-    max-height: 200px;
-  }
 }
 
 .flashcard {
@@ -1845,11 +1840,6 @@ button {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
-
-  .flashcard-mode-screen.shrink-for-chat & {
-    height: 100%;
-    max-height: 200px;
-  }
 
   &.flipped {
     transform: rotateY(180deg);
@@ -1887,32 +1877,18 @@ button {
     font-weight: 700;
     margin-bottom: var(--spacing-md);
     text-align: center;
-
-    .flashcard-mode-screen.shrink-for-chat & {
-      font-size: 24px;
-      margin-bottom: var(--spacing-sm);
-    }
   }
 
   .word-type {
     font-size: var(--font-md);
     opacity: 0.9;
     margin-bottom: var(--spacing-lg);
-
-    .flashcard-mode-screen.shrink-for-chat & {
-      font-size: var(--font-sm);
-      margin-bottom: var(--spacing-md);
-    }
   }
 
   .hint {
     font-size: var(--font-sm);
     opacity: 0.7;
     text-align: center;
-
-    .flashcard-mode-screen.shrink-for-chat & {
-      font-size: var(--font-xs);
-    }
   }
 }
 
@@ -1926,11 +1902,6 @@ button {
     color: var(--accent-primary);
     margin-bottom: var(--spacing-lg);
     text-align: center;
-
-    .flashcard-mode-screen.shrink-for-chat & {
-      font-size: 16px;
-      margin-bottom: var(--spacing-md);
-    }
   }
 
   .example {
@@ -1938,11 +1909,6 @@ button {
     color: var(--text-muted);
     text-align: center;
     font-style: italic;
-
-    .flashcard-mode-screen.shrink-for-chat & {
-      font-size: var(--font-xs);
-      line-height: 1.3;
-    }
 
     strong {
       color: var(--text-dark);
@@ -2036,11 +2002,23 @@ button {
   }
 
   .chat-options {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: var(--spacing-sm);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-md);
     padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: 1px solid var(--border-light);
+
+    @media (max-width: 600px) {
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-sm);
+    }
+
+    @media (max-width: 400px) {
+      gap: 6px;
+      padding: var(--spacing-md) 4px;
+    }
 
     .btn-option-ai {
       background: white;
@@ -2056,6 +2034,21 @@ button {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      flex: 0 1 auto;
+      min-width: 70px;
+
+      @media (max-width: 600px) {
+        flex-basis: calc(50% - var(--spacing-sm));
+        min-width: unset;
+        padding: var(--spacing-xs) 8px;
+        font-size: 11px;
+      }
+
+      @media (max-width: 400px) {
+        flex-basis: calc(50% - 3px);
+        padding: var(--spacing-xs) 6px;
+        font-size: 10px;
+      }
 
       &:hover:not(:disabled) {
         background: rgba(99, 102, 241, 0.05);
