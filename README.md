@@ -4,9 +4,7 @@ A modern, full-stack web application for learning and testing vocabulary skills 
 
 ## Project Overview
 
-This project demonstrates the power of AI-assisted development through vibe coding methodology. The entire application was built collaboratively using GitHub Copilot for code suggestions and Claude Haiku 4.5 as the primary AI model for architecture decisions, component design, and problem-solving. 
-
-Only 1% of the codebase was written manually, with the vast majority generated through intelligent prompting and iterative AI collaboration. This approach showcases how modern AI tools can dramatically accelerate development cycles while maintaining code quality and architectural integrity.
+A comprehensive vocabulary learning platform that combines interactive flashcards and multiple-choice quizzes with AI-powered learning assistance. The application helps users expand their vocabulary through active and passive learning modes, with integrated AI chat functionality for real-time word explanations and related vocabulary discovery.
 
 ## Project Status
 
@@ -34,45 +32,41 @@ Planned future enhancements:
 - Axios for HTTP communication
 
 ### Backend Requirements
-- RESTful API endpoints for data management
-- Vocabulary data storage
+- RESTful API endpoints for vocabulary data management
 - Score and leaderboard persistence
-- User session management
+- AI integration for the chat assistant feature
 
 ## Key Features
 
-- **Flashcard Mode**: Interactive card flipping interface for passive vocabulary learning
-- **Multiple Choice Mode**: Scored quiz mode with immediate feedback
-- **Score Tracking**: Automatic persistence of scores to leaderboard
-- **Responsive Design**: Mobile-optimized interface (90% width on screens < 500px)
-- **Modern UI**: Clean, professional design with Poppins and Inter fonts
-- **Real-time Feedback**: Instant correctness validation during quizzes
-- **Leaderboard**: Display of high scores and top performers
+- **Flashcard Learning Mode**: Interactive card flipping interface with pronunciation support and word examples for passive vocabulary learning
+- **Multiple Choice Quiz Mode**: Scored quiz mode with immediate feedback and difficulty levels for active learning
+- **AI Assistant Panel**: Embedded chat feature that provides on-demand word explanations, synonyms, antonyms, and usage examples
+- **Quick AI Options**: Pre-built prompts for synonyms, antonyms, examples, translation, and pronunciation guidance
+- **Markdown Support**: AI responses render with proper formatting including code blocks, lists, and emphasis
+- **Score Tracking**: Automatic persistence of quiz scores to leaderboard for progress monitoring
+- **Responsive Design**: Mobile-optimized interface that scales automatically across all device sizes
+- **Real-time Feedback**: Instant correctness validation during quizzes with visual indicators
+- **Leaderboard System**: Display of high scores and top performers for competitive engagement
+- **Custom Input Support**: Ability to ask custom questions about vocabulary words in the AI chat
+- **Auto-scrolling Chat**: Chat window auto-scrolls within its container to show new AI responses
 
-## Development Methodology
+## Roadmap
 
-### Vibe Coding with AI
+### Planned Features
 
-This project was developed using a vibe coding approach where:
-1. Requirements and features were specified through natural language prompts
-2. GitHub Copilot provided intelligent code suggestions and completions
-3. Claude Haiku 4.5 handled complex architectural decisions and debugging
-4. Iterative refinement through AI-assisted problem-solving
-5. Minimal manual code writing focused on fine-tuning and direction
+- Filter flashcards by categories for targeted learning
+- Ability for users to add custom words to their learning set
+- Share word lists with other users for collaborative learning
+- User authentication and profiles
+- Advanced analytics and progress tracking
+- Additional vocabulary difficulty levels
+- Performance optimization and response caching
 
 ## License
 
 This project is part of the Vocabulary Learning and Quiz application suite.
 
-## Acknowledgments
-
-Built with assistance from:
-- GitHub Copilot for intelligent code generation
-- Claude Haiku 4.5 for architectural guidance and problem-solving
-- Modern web development frameworks and tools
-
 ---
 
-**Last Updated**: January 2026
+**Last Updated**: February 2026
 **Status**: In Progress
-**AI Assistance**: ~99% of codebase
