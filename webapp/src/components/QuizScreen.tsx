@@ -85,6 +85,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
         total={questions.length}
         hearts={0}
         quizMode={quizMode}
+        word={currentQuestion.word}
+        wordType={currentQuestion.wordType}
+        onQuit={onQuit}
       />
       <QuestionCard
         word={currentQuestion.word}

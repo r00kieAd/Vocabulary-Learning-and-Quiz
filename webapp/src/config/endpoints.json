@@ -4,5 +4,6 @@
     "SCORES": "/scores/all_scores/",
     "HIGH_SCORE": "/scores/high_score/",
     "INSERT_SCORE": "/scores/insert_score/",
-    "GET_ANSWER": "/ai/get_answers/"
+    "GET_ANSWER": "/ai/get_answers/",
+    "TEXT2SPEECH": "/ai/text_to_speech/"
 }
