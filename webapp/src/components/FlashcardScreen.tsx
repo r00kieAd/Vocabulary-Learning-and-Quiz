@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AIChatPanel } from './AIChatPanel';
+import { fetchAndPlayTTS } from '../services/ttsAudio';
 
 interface FlashcardQuestion {
   vocabId: number;
@@ -29,6 +30,7 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [audioState, setAudioState] = useState<'idle' | 'loading' | 'playing' | 'error'>('idle');
   const trackedWordsRef = useRef<Set<number>>(new Set());
   const chatPanelRef = useRef<HTMLDivElement>(null);
 
@@ -102,6 +104,24 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
     }
   };
 
+  const handlePlayAudio = async () => {
+    if (audioState === 'loading' || audioState === 'playing' || !currentCard) return;
+
+    try {
+      setAudioState('loading');
+      await fetchAndPlayTTS(
+        currentCard.word,
+        () => setAudioState('playing'),
+        () => setAudioState('idle')
+      );
+    } catch (error) {
+      console.error('Audio playback failed:', error);
+      setAudioState('error');
+      // Revert to idle after 2 seconds
+      setTimeout(() => setAudioState('idle'), 2000);
+    }
+  };
+
   return (
     <div className="quiz-screen flashcard-mode-screen">
       <div className={`flashcard-header ${isChatOpen ? 'chat-open' : ''}`}>
@@ -112,6 +132,17 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
               
             </div>
             <div className="header-buttons">
+              <button
+                className="btn-play-audio"
+                onClick={handlePlayAudio}
+                disabled={audioState === 'loading' || audioState === 'playing'}
+                title="Play pronunciation"
+              >
+                {audioState === 'idle' && <i className="fa-solid fa-volume"></i>}
+                {audioState === 'loading' && <i className="fa-solid fa-volume fa-beat-fade"></i>}
+                {audioState === 'playing' && <i className="fa-solid fa-volume fa-shake"></i>}
+                {audioState === 'error' && <i className="fa-solid fa-volume-xmark" style={{ color: 'rgb(225, 49, 29)' }}></i>}
+              </button>
               <button
                 className="btn-ask-ai"
                 onClick={() => setIsChatOpen(true)}

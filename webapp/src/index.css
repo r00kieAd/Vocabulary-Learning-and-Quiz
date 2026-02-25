@@ -767,6 +767,57 @@ button:active:not(:disabled) {
 .quiz-screen .progress-header .hearts .heart.lost {
   animation: shake 0.3s ease-in-out;
 }
+.quiz-screen .progress-header .header-right {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+.quiz-screen .progress-header .header-right .btn-play-audio {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-btn);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-screen .progress-header .header-right .btn-play-audio:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  transform: scale(1.05);
+}
+.quiz-screen .progress-header .header-right .btn-play-audio:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.quiz-screen .progress-header .header-right .btn-play-audio:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.quiz-screen .progress-header .header-right .btn-quit-quiz {
+  background: #e1311d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-btn);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-screen .progress-header .header-right .btn-quit-quiz:hover {
+  background: #c6260f;
+  transform: scale(1.05);
+}
+.quiz-screen .progress-header .header-right .btn-quit-quiz:active {
+  transform: scale(0.98);
+}
 .quiz-screen .question-card {
   background: var(--card-bg);
   border-radius: var(--radius-card);
@@ -1504,6 +1555,31 @@ button:active:not(:disabled) {
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
+}
+.flashcard-header .header-buttons .btn-play-audio {
+  background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-btn);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flashcard-header .header-buttons .btn-play-audio:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  transform: scale(1.05);
+}
+.flashcard-header .header-buttons .btn-play-audio:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.flashcard-header .header-buttons .btn-play-audio:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 .flashcard-header .header-buttons .btn-ask-ai {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
