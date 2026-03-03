@@ -4,8 +4,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap");
 :root {
   /* Font Family */
-  --font-primary: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto;
-  --font-secondary: "Inter", system-ui, -apple-system;
+  --font-primary: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto;
+  --font-secondary: 'Inter', system-ui, -apple-system;
   /* Brand Colors */
   --bg-gradient-start: #0F2854;
   --bg-gradient-end: #7c3aed;
@@ -24,6 +24,7 @@
   /* Neutral */
   --text-dark: #1f2937;
   --text-muted: #6b7280;
+  --text-faded: #e5e7eb;
   --border-light: #e5e7eb;
   --bg-light: #f9fafb;
   /* Typography */
@@ -208,8 +209,7 @@ button:active:not(:disabled) {
   border-radius: var(--radius-card);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-soft);
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.2s ease;
 }
@@ -222,8 +222,7 @@ button:active:not(:disabled) {
   border-radius: var(--radius-card);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-md);
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -551,9 +550,12 @@ button:active:not(:disabled) {
   max-width: 900px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: var(--spacing-lg);
   animation: fadeIn 0.4s ease-out;
   padding: var(--spacing-lg);
+  margin: 0 auto;
 }
 @media (max-width: 500px) {
   .game-shell {
@@ -728,6 +730,7 @@ button:active:not(:disabled) {
   flex-direction: column;
   gap: var(--spacing-lg);
   animation: slideIn 0.3s ease-out;
+  width: 100%;
 }
 .quiz-screen .progress-header {
   display: flex;
@@ -798,7 +801,7 @@ button:active:not(:disabled) {
   cursor: not-allowed;
 }
 .quiz-screen .progress-header .header-right .btn-quit-quiz {
-  background: #e1311d;
+  background: var(--wrong);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -1339,13 +1342,13 @@ button:active:not(:disabled) {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  -webkit-backdrop-filter: blur(4px);
-          backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .modal-content {
@@ -1360,6 +1363,12 @@ button:active:not(:disabled) {
 .modal-content h2 {
   margin-bottom: var(--spacing-md);
   color: var(--text-dark);
+}
+.modal-content h3 {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-dark);
+  text-align: center;
+  font-size: var(--font-lg);
 }
 .modal-content p {
   color: var(--text-muted);
@@ -1379,6 +1388,12 @@ button:active:not(:disabled) {
   outline: none;
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+.modal-content .modal-input::-moz-placeholder {
+  color: var(--text-muted);
+}
+.modal-content .modal-input::placeholder {
+  color: var(--text-muted);
 }
 .modal-content .input-group {
   display: flex;
@@ -1416,15 +1431,74 @@ button:active:not(:disabled) {
 .modal-content .modal-buttons {
   display: flex;
   gap: var(--spacing-md);
+  flex-direction: column;
 }
 .modal-content .modal-buttons button {
-  flex: 1;
-  padding: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--radius-btn);
   font-weight: 700;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: var(--font-md);
+}
+.modal-content .modal-buttons button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.modal-content .modal-buttons button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.modal-content .modal-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.modal-content .modal-buttons button.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+}
+.modal-content .modal-buttons button.btn-secondary {
+  background: white;
+  border: 2px solid var(--border-light);
+  color: var(--text-dark);
+}
+.modal-content .modal-buttons button.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+.modal-content.username-modal {
+  max-width: 380px;
+}
+.modal-content.username-modal h3 {
+  margin-bottom: var(--spacing-lg);
+  color: var(--accent-primary);
+}
+.modal-content.username-modal input[type=text] {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  font-size: var(--font-md);
+  font-family: var(--font-family);
+  margin-bottom: var(--spacing-lg);
+  transition: all 0.2s ease;
+}
+.modal-content.username-modal input[type=text]:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+.modal-content.username-modal input[type=text]::-moz-placeholder {
+  color: var(--text-muted);
+}
+.modal-content.username-modal input[type=text]::placeholder {
+  color: var(--text-muted);
+}
+.modal-content.username-modal .modal-buttons {
+  flex-direction: row;
+}
+.modal-content.username-modal .modal-buttons button {
+  flex: 1;
 }
 
 .modal-card {
@@ -1514,7 +1588,11 @@ button:active:not(:disabled) {
 .flashcard-mode-screen {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: var(--spacing-xl);
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .flashcard-header {
@@ -1531,7 +1609,7 @@ button:active:not(:disabled) {
   flex-direction: column;
   align-items: stretch;
   padding: var(--spacing-md);
-  min-height: auto;
+  gap: var(--spacing-md);
 }
 .flashcard-header .progress-info {
   display: flex;
@@ -1548,13 +1626,16 @@ button:active:not(:disabled) {
 }
 .flashcard-header .progress-info .progress-text {
   font-size: var(--font-md);
-  color: var(--text-muted);
+  color: white;
   font-weight: 500;
 }
 .flashcard-header .header-buttons {
   display: flex;
   gap: var(--spacing-md);
   align-items: center;
+  min-height: 30px;
+  height: 40px;
+  max-height: 40px;
 }
 .flashcard-header .header-buttons .btn-play-audio {
   background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
@@ -1569,6 +1650,7 @@ button:active:not(:disabled) {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: inherit;
 }
 .flashcard-header .header-buttons .btn-play-audio:hover:not(:disabled) {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
@@ -1591,6 +1673,7 @@ button:active:not(:disabled) {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  height: inherit;
 }
 .flashcard-header .header-buttons .btn-ask-ai:hover {
   background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
@@ -1609,6 +1692,7 @@ button:active:not(:disabled) {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  height: inherit;
 }
 .flashcard-header .btn-clear-learned:hover {
   background: var(--accent-primary);
@@ -1754,6 +1838,7 @@ button:active:not(:disabled) {
   color: var(--text-muted);
   box-shadow: var(--shadow-soft);
 }
+
 /* ========================================
    AI CHAT PANEL STYLES
    ======================================== */
@@ -1761,7 +1846,7 @@ button:active:not(:disabled) {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 350px;
+  max-height: 400px;
   background: var(--card-bg);
   border-radius: var(--radius-card);
   box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
@@ -1781,6 +1866,7 @@ button:active:not(:disabled) {
   font-size: var(--font-md);
   font-weight: 600;
   margin: 0;
+  color: var(--text-faded);
 }
 .ai-chat-panel .chat-header .btn-close {
   background: rgba(255, 255, 255, 0.2);
@@ -1834,6 +1920,9 @@ button:active:not(:disabled) {
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   flex: 0 1 auto;
   min-width: 70px;
 }
@@ -1922,12 +2011,7 @@ button:active:not(:disabled) {
   max-width: 85%;
   /* Markdown styles */
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h1,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h1, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
   margin: var(--spacing-sm) 0;
   font-weight: 700;
   line-height: 1.4;
@@ -1938,17 +2022,13 @@ button:active:not(:disabled) {
 .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2 {
   font-size: var(--font-sm);
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
   font-size: var(--font-xs);
 }
 .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content p {
   margin: var(--spacing-sm) 0;
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ul,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ol {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ul, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ol {
   margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
   padding-left: var(--spacing-lg);
 }
@@ -1959,7 +2039,7 @@ button:active:not(:disabled) {
   background: var(--bg-light);
   padding: 2px 6px;
   border-radius: var(--radius-sm);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.9em;
   color: var(--accent-primary);
 }
@@ -2000,8 +2080,7 @@ button:active:not(:disabled) {
   margin: var(--spacing-sm) 0;
   width: 100%;
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table th,
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table td {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table th, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table td {
   border: 1px solid var(--border-light);
   padding: var(--spacing-sm);
   text-align: left;
@@ -2021,8 +2100,11 @@ button:active:not(:disabled) {
   line-height: 1.5;
   word-break: break-word;
 }
+.ai-chat-panel .chat-messages .chat-message .message-content .loading-dots {
+  display: inline-block;
+}
 .ai-chat-panel .chat-messages .chat-message .message-content .loading-dots::after {
-  content: '';
+  content: "";
   animation: ellipses 1.2s steps(4, end) infinite;
 }
 .ai-chat-panel .chat-input-area {
@@ -2092,6 +2174,7 @@ button:active:not(:disabled) {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
 @keyframes slideUp {
   from {
     opacity: 0;
@@ -2101,4 +2184,532 @@ button:active:not(:disabled) {
     opacity: 1;
     transform: translateY(0);
   }
+}
+/* ========================================
+   FLASHCARD SECTION STYLES
+   ======================================== */
+.flashcard-section-loader,
+.flashcard-section-prompt,
+.flashcard-section,
+.quiz-section-loader,
+.quiz-section-prompt,
+.quiz-section {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  gap: var(--spacing-lg);
+  animation: slideIn 0.3s ease-out;
+  padding: var(--spacing-lg);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.flashcard-section-header {
+  width: 100%;
+}
+
+.flashcard-section-loader,
+.quiz-section-loader {
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+.flashcard-section-loader .loader-spinner,
+.quiz-section-loader .loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--border-light);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.flashcard-section-loader p,
+.quiz-section-loader p {
+  margin-top: var(--spacing-md);
+  color: var(--text-muted);
+}
+
+.flashcard-section-prompt,
+.quiz-section-prompt {
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+.flashcard-section-prompt .prompt-card,
+.quiz-section-prompt .prompt-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  max-width: 420px;
+  width: 100%;
+  animation: slideIn 0.3s ease-out;
+}
+.flashcard-section-prompt .prompt-card h2,
+.quiz-section-prompt .prompt-card h2 {
+  color: var(--accent-primary);
+  margin-bottom: var(--spacing-md);
+  font-size: var(--font-xl);
+  font-weight: 700;
+}
+.flashcard-section-prompt .prompt-card p,
+.quiz-section-prompt .prompt-card p {
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xl);
+  font-size: var(--font-md);
+  line-height: 1.6;
+}
+.flashcard-section-prompt .prompt-card .buttons-group,
+.quiz-section-prompt .prompt-card .buttons-group {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-direction: column;
+  justify-content: center;
+}
+.flashcard-section-prompt .prompt-card .buttons-group button,
+.quiz-section-prompt .prompt-card .buttons-group button {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-btn);
+  border: none;
+  font-weight: 700;
+  font-size: var(--font-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.flashcard-section-prompt .prompt-card .buttons-group button:hover:not(:disabled),
+.quiz-section-prompt .prompt-card .buttons-group button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.flashcard-section-prompt .prompt-card .buttons-group button:active:not(:disabled),
+.quiz-section-prompt .prompt-card .buttons-group button:active:not(:disabled) {
+  transform: translateY(0);
+}
+.flashcard-section-prompt .prompt-card .buttons-group button:disabled,
+.quiz-section-prompt .prompt-card .buttons-group button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.flashcard-section-prompt .prompt-card .buttons-group button.btn-primary,
+.quiz-section-prompt .prompt-card .buttons-group button.btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+}
+.flashcard-section-prompt .prompt-card .buttons-group button.btn-secondary,
+.quiz-section-prompt .prompt-card .buttons-group button.btn-secondary {
+  background: white;
+  border: 2px solid var(--border-light);
+  color: var(--text-dark);
+}
+.flashcard-section-prompt .prompt-card .buttons-group button.btn-secondary:hover:not(:disabled),
+.quiz-section-prompt .prompt-card .buttons-group button.btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+.flashcard-section-header,
+.quiz-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: var(--shadow-soft);
+}
+.flashcard-section-header h2,
+.quiz-section-header h2 {
+  color: var(--accent-primary);
+  font-size: var(--font-lg);
+}
+.flashcard-section-header .btn-link,
+.quiz-section-header .btn-link {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius-btn);
+  font-weight: 600;
+  font-size: var(--font-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.flashcard-section-header .btn-link:hover,
+.quiz-section-header .btn-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+.flashcard-section-header .btn-link:active,
+.quiz-section-header .btn-link:active {
+  transform: translateY(0);
+}
+.flashcard-section-header.quiz-section-header .btn-link,
+.quiz-section-header.quiz-section-header .btn-link {
+  display: none;
+}
+
+.flashcard-section-content,
+.quiz-section-content {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+.flashcard-section-content h3,
+.quiz-section-content h3 {
+  color: var(--text-dark);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-lg);
+}
+.flashcard-section-content .word-type-options,
+.flashcard-section-content .quiz-category-options,
+.quiz-section-content .word-type-options,
+.quiz-section-content .quiz-category-options {
+  overflow: hidden;
+  background: transparent;
+  padding-top: 5px;
+}
+.flashcard-section-content .loader,
+.quiz-section-content .loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+.flashcard-section-content .loader .loader-spinner,
+.quiz-section-content .loader .loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+.flashcard-section-content .loader p,
+.quiz-section-content .loader p {
+  margin-top: var(--spacing-md);
+  color: var(--text-muted);
+}
+.flashcard-section-content .error-message,
+.quiz-section-content .error-message {
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 4px solid var(--wrong);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--spacing-lg);
+}
+.flashcard-section-content .error-message p,
+.quiz-section-content .error-message p {
+  color: var(--wrong);
+  font-weight: 600;
+  margin-bottom: var(--spacing-md);
+}
+
+.quiz-section-content,
+.quiz-section-header {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.word-type-options,
+.quiz-category-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+  z-index: 10;
+}
+@media (max-width: 768px) {
+  .word-type-options,
+  .quiz-category-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 480px) {
+  .word-type-options,
+  .quiz-category-options {
+    grid-template-columns: 1fr;
+  }
+}
+.word-type-options .word-type-option,
+.word-type-options .quiz-category-option,
+.quiz-category-options .word-type-option,
+.quiz-category-options .quiz-category-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-btn);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.word-type-options .word-type-option input[type=radio],
+.word-type-options .quiz-category-option input[type=radio],
+.quiz-category-options .word-type-option input[type=radio],
+.quiz-category-options .quiz-category-option input[type=radio] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--accent-primary);
+  flex-shrink: 0;
+}
+.word-type-options .word-type-option .label-text,
+.word-type-options .quiz-category-option .label-text,
+.quiz-category-options .word-type-option .label-text,
+.quiz-category-options .quiz-category-option .label-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+  gap: 2px;
+}
+.word-type-options .word-type-option .label-text .type-name,
+.word-type-options .word-type-option .label-text .category-name,
+.word-type-options .quiz-category-option .label-text .type-name,
+.word-type-options .quiz-category-option .label-text .category-name,
+.quiz-category-options .word-type-option .label-text .type-name,
+.quiz-category-options .word-type-option .label-text .category-name,
+.quiz-category-options .quiz-category-option .label-text .type-name,
+.quiz-category-options .quiz-category-option .label-text .category-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: var(--font-sm);
+}
+.word-type-options .word-type-option .label-text .type-count,
+.word-type-options .word-type-option .label-text .category-count,
+.word-type-options .quiz-category-option .label-text .type-count,
+.word-type-options .quiz-category-option .label-text .category-count,
+.quiz-category-options .word-type-option .label-text .type-count,
+.quiz-category-options .word-type-option .label-text .category-count,
+.quiz-category-options .quiz-category-option .label-text .type-count,
+.quiz-category-options .quiz-category-option .label-text .category-count {
+  color: var(--text-muted);
+  font-size: var(--font-xs);
+}
+.word-type-options .word-type-option:hover,
+.word-type-options .quiz-category-option:hover,
+.quiz-category-options .word-type-option:hover,
+.quiz-category-options .quiz-category-option:hover {
+  border-color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.05);
+  transform: translateY(-2px);
+}
+.word-type-options .word-type-option:has(input:checked),
+.word-type-options .quiz-category-option:has(input:checked),
+.quiz-category-options .word-type-option:has(input:checked),
+.quiz-category-options .quiz-category-option:has(input:checked) {
+  border-color: var(--accent-primary);
+  background: rgba(99, 102, 241, 0.12);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+.word-type-options .category-separator,
+.quiz-category-options .category-separator {
+  grid-column: 1/-1;
+  height: 1px;
+  background: var(--border-light);
+  margin: var(--spacing-md) 0;
+}
+
+.count-selection {
+  background: var(--bg-light);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-btn);
+  margin-bottom: var(--spacing-lg);
+}
+.count-selection .count-display {
+  text-align: center;
+}
+.count-selection .count-display label {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.count-selection .count-display .count-input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+.count-selection .count-display .count-input-group .btn-count-control {
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+}
+.count-selection .count-display .count-input-group .btn-count-control:hover:not(:disabled) {
+  background: var(--accent-secondary);
+  transform: scale(1.1);
+}
+.count-selection .count-display .count-input-group .btn-count-control:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.count-selection .count-display .count-input-group .btn-count-control:disabled {
+  background: var(--text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.count-selection .count-display .count-input-group .count-input {
+  width: 100px;
+  padding: var(--spacing-md);
+  font-size: var(--font-lg);
+  text-align: center;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+.count-selection .count-display .count-input-group .count-input:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+.count-selection .count-display .count-input-group .count-input {
+  /* Hide number input toolkit */
+}
+.count-selection .count-display .count-input-group .count-input::-webkit-outer-spin-button, .count-selection .count-display .count-input-group .count-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.count-selection .count-display .count-input-group .count-input[type=number] {
+  -moz-appearance: textfield;
+}
+.count-selection .count-display .count-info {
+  color: var(--text-muted);
+  font-size: var(--font-sm);
+}
+.count-selection .count-display .count-info strong {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.buttons-group {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+.buttons-group .btn-primary,
+.buttons-group .btn-secondary {
+  flex: 1;
+  min-width: 100px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-btn);
+  border: none;
+  font-weight: 600;
+  font-size: var(--font-md);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.buttons-group .btn-primary:hover:not(:disabled),
+.buttons-group .btn-secondary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.buttons-group .btn-primary:active:not(:disabled),
+.buttons-group .btn-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+.buttons-group .btn-primary:disabled,
+.buttons-group .btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.buttons-group .btn-primary {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+}
+.buttons-group .btn-secondary {
+  background: white;
+  border: 2px solid var(--border-light);
+  color: var(--text-dark);
+}
+.buttons-group .btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* ========================================
+   QUIZ RESULT STYLES
+   ======================================== */
+.quiz-result-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+.quiz-result-card h2 {
+  color: var(--accent-primary);
+  margin-bottom: var(--spacing-xl);
+  font-size: 32px;
+}
+.quiz-result-card .quiz-result-score {
+  display: flex;
+  gap: var(--spacing-xl);
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+.quiz-result-card .quiz-result-score .score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+.quiz-result-card .quiz-result-score .score-display .score-value {
+  font-size: 64px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  line-height: 1;
+}
+.quiz-result-card .quiz-result-score .score-display .score-total {
+  font-size: var(--font-md);
+  color: var(--text-muted);
+}
+.quiz-result-card .quiz-result-score .score-percentage {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  min-width: 120px;
+}
+.quiz-result-card .quiz-result-score .score-percentage .percentage-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: white;
+}
+.quiz-result-card .quiz-result-message {
+  margin-bottom: var(--spacing-xl);
+}
+.quiz-result-card .quiz-result-message p {
+  font-size: var(--font-lg);
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
 }/*# sourceMappingURL=index.css.map */
