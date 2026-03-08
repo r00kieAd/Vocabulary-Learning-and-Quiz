@@ -1,6 +1,6 @@
 import React from 'react';
 import GradientText from './GradientText';
-import vocab from '../assets/vocab.png';
+import vocab from '../assets/book1.svg';
 
 interface HomeScreenProps {
   onSelectMode: (mode: 'flashcard' | 'mcq') => void;

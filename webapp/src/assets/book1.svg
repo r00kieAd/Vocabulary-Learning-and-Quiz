@@ -1,0 +1,176 @@
+<svg width="340" height="240" viewBox="0 0 340 240" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+    <!-- Warm paper gradients -->
+    <linearGradient id="leftPaper" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#e8dfc5"/>
+      <stop offset="100%" stop-color="#f5eed8"/>
+    </linearGradient>
+    <linearGradient id="rightPaper" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f5eed8"/>
+      <stop offset="100%" stop-color="#e8dfc5"/>
+    </linearGradient>
+
+    <!-- Drop shadow for turning page -->
+    <filter id="pageShadow" x="-15%" y="-10%" width="135%" height="130%">
+      <feDropShadow dx="-4" dy="3" stdDeviation="7" flood-color="#00000030"/>
+    </filter>
+
+    <!-- Subtle ground shadow -->
+    <filter id="groundBlur">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+
+  </defs>
+
+  <!-- Ground shadow -->
+  <ellipse cx="170" cy="232" rx="148" ry="9" fill="#00000020" filter="url(#groundBlur)"/>
+
+  <!-- ── Book Cover ── -->
+  <rect x="12" y="152" width="316" height="72" rx="18"
+    fill="#1c3d6e" stroke="#0f2540" stroke-width="2.5"/>
+
+  <!-- Cover panel highlights -->
+  <rect x="12" y="152" width="156" height="72" rx="18" fill="#243f72" opacity="0.45"/>
+  <rect x="22" y="161" width="138" height="54" rx="7"
+    fill="none" stroke="#3060a8" stroke-width="1.5" opacity="0.65"/>
+
+  <rect x="172" y="152" width="156" height="72" rx="18" fill="#243f72" opacity="0.45"/>
+  <rect x="180" y="161" width="138" height="54" rx="7"
+    fill="none" stroke="#3060a8" stroke-width="1.5" opacity="0.65"/>
+
+  <!-- Spine -->
+  <rect x="160" y="152" width="20" height="72" fill="#0f2540"/>
+  <line x1="170" y1="152" x2="170" y2="224" stroke="#1d3d68" stroke-width="1.5"/>
+
+  <!-- ── Static Background Pages ── -->
+
+  <!-- Left page (static) -->
+  <path d="M36 36 Q104 13 170 36 L170 188 Q104 172 36 188 Z"
+    fill="url(#leftPaper)" stroke="#c9b98c" stroke-width="1.5"/>
+
+  <!-- Left page text lines -->
+  <g stroke="#c4b282" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M65 72 Q98 67 140 72"/>
+    <path d="M65 99  Q98 94 140 99"/>
+    <path d="M65 126 Q98 121 140 126"/>
+    <path d="M65 153 Q98 148 140 153"/>
+  </g>
+
+  <!-- Right page (static — visible when animated page is on the left) -->
+  <path d="M170 36 Q236 13 304 36 L304 188 Q236 172 170 188 Z"
+    fill="url(#rightPaper)" stroke="#c9b98c" stroke-width="1.5"/>
+
+  <!-- Right page text lines -->
+  <g stroke="#c4b282" stroke-width="2" stroke-linecap="round" fill="none">
+    <path d="M200 72 Q238 67 275 72"/>
+    <path d="M200 99  Q238 94 275 99"/>
+    <path d="M200 126 Q238 121 275 126"/>
+    <path d="M200 153 Q238 148 275 153"/>
+  </g>
+
+  <!-- Book spine line (over pages) -->
+  <line x1="170" y1="36" x2="170" y2="188" stroke="#b0a070" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- ── Animated Page ── -->
+  <!--
+    6-keyframe BIDIRECTIONAL flip using consistent M…Q…L…Q…Z path format
+    for clean SVG morphing:
+      0.00 → right open  (pause)
+      0.35 → spine       (page folded at center, turning right→left)
+      0.45 → left open   (landed on left, pause begins)
+      0.80 → left open   (pause ends)
+      0.90 → spine       (page folded at center, turning left→right)
+      1.00 → right open  (= frame 0, seamless loop)
+  -->
+
+  <path fill="#f5eed8" stroke="#c5b488" stroke-width="2" filter="url(#pageShadow)">
+    <animate attributeName="d"
+      dur="4.5s" repeatCount="indefinite"
+      calcMode="spline"
+      keyTimes="0; 0.35; 0.45; 0.80; 0.90; 1"
+      keySplines="
+        0.55 0 0.45 1;
+        0.00 0 0.35 1;
+        0.00 0 1.00 1;
+        0.55 0 0.45 1;
+        0.00 0 0.45 1"
+      values="
+        M170 36 Q236 13 304 36 L304 188 Q236 172 170 188 Z;
+        M170 36 Q172 37 174 38 L174 186 Q172 188 170 188 Z;
+        M170 36 Q104 13  36 36 L 36 188 Q104 172 170 188 Z;
+        M170 36 Q104 13  36 36 L 36 188 Q104 172 170 188 Z;
+        M170 36 Q172 37 174 38 L174 186 Q172 188 170 188 Z;
+        M170 36 Q236 13 304 36 L304 188 Q236 172 170 188 Z"/>
+  </path>
+
+  <!-- Animated text lines on turning page -->
+  <g stroke="#c2af82" stroke-width="2" stroke-linecap="round" fill="none">
+
+    <!-- Line 1 -->
+    <path>
+      <animate attributeName="d"
+        dur="4.5s" repeatCount="indefinite"
+        calcMode="spline"
+        keyTimes="0; 0.35; 0.45; 0.80; 0.90; 1"
+        keySplines="0.55 0 0.45 1; 0.00 0 0.35 1; 0.00 0 1.00 1; 0.55 0 0.45 1; 0.00 0 0.45 1"
+        values="
+          M200 72 Q240 67 272 72;
+          M171 72 Q172 71 173 72;
+          M140 72 Q100 67  68 72;
+          M140 72 Q100 67  68 72;
+          M171 72 Q172 71 173 72;
+          M200 72 Q240 67 272 72"/>
+    </path>
+
+    <!-- Line 2 -->
+    <path>
+      <animate attributeName="d"
+        dur="4.5s" repeatCount="indefinite"
+        calcMode="spline"
+        keyTimes="0; 0.35; 0.45; 0.80; 0.90; 1"
+        keySplines="0.55 0 0.45 1; 0.00 0 0.35 1; 0.00 0 1.00 1; 0.55 0 0.45 1; 0.00 0 0.45 1"
+        values="
+          M200 99 Q240 94 272 99;
+          M171 99 Q172 98 173 99;
+          M140 99 Q100 94  68 99;
+          M140 99 Q100 94  68 99;
+          M171 99 Q172 98 173 99;
+          M200 99 Q240 94 272 99"/>
+    </path>
+
+    <!-- Line 3 -->
+    <path>
+      <animate attributeName="d"
+        dur="4.5s" repeatCount="indefinite"
+        calcMode="spline"
+        keyTimes="0; 0.35; 0.45; 0.80; 0.90; 1"
+        keySplines="0.55 0 0.45 1; 0.00 0 0.35 1; 0.00 0 1.00 1; 0.55 0 0.45 1; 0.00 0 0.45 1"
+        values="
+          M200 126 Q240 121 272 126;
+          M171 126 Q172 125 173 126;
+          M140 126 Q100 121  68 126;
+          M140 126 Q100 121  68 126;
+          M171 126 Q172 125 173 126;
+          M200 126 Q240 121 272 126"/>
+    </path>
+
+    <!-- Line 4 -->
+    <path>
+      <animate attributeName="d"
+        dur="4.5s" repeatCount="indefinite"
+        calcMode="spline"
+        keyTimes="0; 0.35; 0.45; 0.80; 0.90; 1"
+        keySplines="0.55 0 0.45 1; 0.00 0 0.35 1; 0.00 0 1.00 1; 0.55 0 0.45 1; 0.00 0 0.45 1"
+        values="
+          M200 153 Q240 148 272 153;
+          M171 153 Q172 152 173 153;
+          M140 153 Q100 148  68 153;
+          M140 153 Q100 148  68 153;
+          M171 153 Q172 152 173 153;
+          M200 153 Q240 148 272 153"/>
+    </path>
+
+  </g>
+
+</svg>

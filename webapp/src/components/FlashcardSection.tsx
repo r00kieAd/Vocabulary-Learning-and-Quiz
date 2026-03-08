@@ -72,7 +72,7 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
       setSelectedType('all');
       setMaxCount(totalCount);
       setSelectedCount(getDefaultWordCount(totalCount));
-      
+
       // Get learned words count
       const learnedCount = getLearnedWordCount();
       setLearnedWordsCount(learnedCount);
@@ -87,7 +87,7 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
   const handleTypeChange = (type: string) => {
     setSelectedType(type);
     let count = 0;
-    
+
     if (type === 'all') {
       count = Object.values(typeCounts).reduce((a, b) => a + b, 0);
     } else if (type === 'learned') {
@@ -95,7 +95,7 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
     } else {
       count = typeCounts[type] || 0;
     }
-    
+
     setMaxCount(count);
     setSelectedCount(getDefaultWordCount(count));
   };
@@ -170,15 +170,17 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
           <div className="prompt-card">
             <h2>Welcome to Flashcard Mode</h2>
             <p>Let's get started! What's your name?</p>
-            <button
-              className="btn-primary"
-              onClick={() => handleInitialUsername()}
-            >
-              Enter Name
-            </button>
-            <button className="btn-secondary" onClick={onExit}>
-              Back
-            </button>
+            <div className="buttons-group">
+              <button
+                className="btn-primary"
+                onClick={() => handleInitialUsername()}
+              >
+                Enter Name
+              </button>
+              <button className="btn-secondary" onClick={onExit}>
+                Back
+              </button>
+            </div>
           </div>
         </div>
 
@@ -220,11 +222,11 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
       <>
         <div className="flashcard-section">
           <div className="flashcard-section-header">
-            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{color: "rgb(194, 99, 85)"}}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
-            <h2>Let's flip some cards, {username}!</h2>
-            <button className="btn-link" onClick={() => handleRename()}>
-              <i className="fa-solid fa-user-pen"></i>
-            </button></>}
+            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{ color: "rgb(194, 99, 85)" }}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
+              <h2>Let's flip some cards, {username}!</h2>
+              <button className="btn-link" onClick={() => handleRename()}>
+                <i className="fa-solid fa-user-pen"></i>
+              </button></>}
           </div>
 
           <div className="flashcard-section-content">

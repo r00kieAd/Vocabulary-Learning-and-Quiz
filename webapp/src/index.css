@@ -7,26 +7,26 @@
   --font-primary: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto;
   --font-secondary: 'Inter', system-ui, -apple-system;
   /* Brand Colors */
-  --bg-gradient-start: #0F2854;
-  --bg-gradient-end: #7c3aed;
-  --bg-gradient-start-light: #6366f1;
-  --bg-gradient-end-light: #8b5cf6;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --card-bg-semi: rgba(255, 255, 255, 0.85);
-  --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
-  --accent-pink: #ec4899;
-  --accent-dark-blue: #0F2854;
+  --bg-gradient-start: #F2F2F2;
+  --bg-gradient-end: #EAE4D5;
+  --bg-gradient-start-light: #F2F2F2;
+  --bg-gradient-end-light: #EAE4D5;
+  --card-bg: #EAE4D5;
+  --card-bg-semi: rgba(234, 228, 213, 0.9);
+  --accent-primary: #000000;
+  --accent-secondary: #B6B09F;
+  --accent-pink: #F2F2F2;
+  --accent-dark-blue: #000000;
   /* Game Colors */
   --correct: #22c55e;
   --wrong: #ef4444;
   --warning: #f59e0b;
   /* Neutral */
-  --text-dark: #1f2937;
-  --text-muted: #6b7280;
-  --text-faded: #e5e7eb;
-  --border-light: #e5e7eb;
-  --bg-light: #f9fafb;
+  --text-dark: #000000;
+  --text-muted: #B6B09F;
+  --text-faded: #EAE4D5;
+  --border-light: #B6B09F;
+  --bg-light: #F2F2F2;
   /* Typography */
   --font-xl: 24px;
   --font-lg: 18px;
@@ -39,7 +39,7 @@
   --radius-card: 16px;
   --radius-btn: 12px;
   --radius-sm: 8px;
-  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
   /* Spacing */
@@ -49,6 +49,82 @@
   --spacing-lg: 24px;
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
+}
+
+:root[data-theme=dark] {
+  --bg-gradient-start: #222831;
+  --bg-gradient-end: #393E46;
+  --bg-gradient-start-light: #222831;
+  --bg-gradient-end-light: #393E46;
+  --card-bg: #393E46;
+  --card-bg-semi: rgba(57, 62, 70, 0.9);
+  --accent-primary: #DFD0B8;
+  --accent-secondary: #948979;
+  --accent-pink: #DFD0B8;
+  --accent-dark-blue: #DFD0B8;
+  --text-dark: #DFD0B8;
+  --text-muted: #948979;
+  --text-faded: #393E46;
+  --border-light: #948979;
+  --bg-light: #222831;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme=ocean] {
+  --bg-gradient-start: #1B3C53;
+  --bg-gradient-end: #234C6A;
+  --bg-gradient-start-light: #1B3C53;
+  --bg-gradient-end-light: #234C6A;
+  --card-bg: #234C6A;
+  --card-bg-semi: rgba(35, 76, 106, 0.9);
+  --accent-primary: #456882;
+  --accent-secondary: #D2C1B6;
+  --accent-pink: #456882;
+  --accent-dark-blue: #456882;
+  --text-dark: #D2C1B6;
+  --text-muted: #456882;
+  --text-faded: #234C6A;
+  --border-light: #456882;
+  --bg-light: #1B3C53;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme=light] {
+  --bg-gradient-start: #F5EFE6;
+  --bg-gradient-end: #E8DFCA;
+  --bg-gradient-start-light: #F5EFE6;
+  --bg-gradient-end-light: #E8DFCA;
+  --card-bg: #E8DFCA;
+  --card-bg-semi: rgba(232, 223, 202, 0.9);
+  --accent-primary: #6D94C5;
+  --accent-secondary: #CBDCEB;
+  --accent-pink: #6D94C5;
+  --accent-dark-blue: #6D94C5;
+  --text-dark: #2C2C2C;
+  --text-muted: #6D94C5;
+  --text-faded: #E8DFCA;
+  --border-light: #CBDCEB;
+  --bg-light: #F5EFE6;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme=earth] {
+  --bg-gradient-start: #3E3F29;
+  --bg-gradient-end: #7D8D86;
+  --bg-gradient-start-light: #3E3F29;
+  --bg-gradient-end-light: #7D8D86;
+  --card-bg: #BCA88D;
+  --card-bg-semi: rgba(188, 168, 141, 0.9);
+  --accent-primary: #3E3F29;
+  --accent-secondary: #7D8D86;
+  --accent-pink: #3E3F29;
+  --accent-dark-blue: #3E3F29;
+  --text-dark: #F1F0E4;
+  --text-muted: #7D8D86;
+  --text-faded: #BCA88D;
+  --border-light: #BCA88D;
+  --bg-light: #F1F0E4;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 /* ========================================
@@ -147,11 +223,11 @@ button:active:not(:disabled) {
   font-size: var(--font-md);
 }
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--accent-primary) 30%, transparent);
 }
 
 .btn-secondary {
-  background: white;
+  background: var(--bg-light);
   color: var(--accent-primary);
   padding: var(--spacing-md) var(--spacing-lg);
   border: 2px solid var(--accent-primary);
@@ -173,7 +249,7 @@ button:active:not(:disabled) {
   width: 100%;
   padding: var(--spacing-md);
   border-radius: var(--radius-btn);
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
   font-size: var(--font-md);
@@ -183,7 +259,7 @@ button:active:not(:disabled) {
 }
 .btn-option:hover:not(:disabled) {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
 }
 .btn-option.selected {
   background: var(--accent-primary);
@@ -711,7 +787,7 @@ button:active:not(:disabled) {
 }
 .level-card .start-btn {
   width: 100%;
-  background: white;
+  background: var(--bg-light);
   color: var(--accent-primary);
   border: 2px solid var(--accent-primary);
   padding: var(--spacing-md);
@@ -867,7 +943,7 @@ button:active:not(:disabled) {
 }
 .quiz-screen .question-card .options .option:hover {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
 }
 .quiz-screen .question-card .options .option.selected {
   background: var(--accent-primary);
@@ -1041,7 +1117,7 @@ button:active:not(:disabled) {
   color: white;
 }
 .completion-screen .action-buttons button.btn-play-again:hover {
-  box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 8px 16px color-mix(in srgb, var(--accent-primary) 30%, transparent);
 }
 .completion-screen .action-buttons button.btn-home {
   background: white;
@@ -1050,7 +1126,7 @@ button:active:not(:disabled) {
 }
 .completion-screen .action-buttons button.btn-home:hover {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
 }
 
 .sidebar-section {
@@ -1108,7 +1184,7 @@ button:active:not(:disabled) {
   color: var(--accent-primary);
 }
 .sidebar-section .score-list .score-item.highlight {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent-primary) 10%, transparent) 0%, color-mix(in srgb, var(--accent-secondary) 10%, transparent) 100%);
 }
 
 /* ========================================
@@ -1182,7 +1258,7 @@ button:active:not(:disabled) {
 }
 .home-screen .header p {
   font-size: var(--font-lg);
-  color: rgba(255, 255, 255, 0.9);
+  color: #000000;
 }
 .home-screen .mode-selector {
   display: grid;
@@ -1268,7 +1344,7 @@ button:active:not(:disabled) {
   border-collapse: collapse;
 }
 .home-screen .high-score-card .scores-table thead {
-  background: var(--bg-light);
+  background: transparent;
 }
 .home-screen .high-score-card .scores-table thead th {
   padding: var(--spacing-sm) var(--spacing-md);
@@ -1399,7 +1475,7 @@ button:active:not(:disabled) {
 .modal-content .modal-input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 .modal-content .modal-input::-moz-placeholder {
   color: var(--text-muted);
@@ -1432,7 +1508,7 @@ button:active:not(:disabled) {
   font-size: var(--font-sm);
 }
 .modal-content .modal-info {
-  background: rgba(99, 102, 241, 0.1);
+  background: color-mix(in srgb, var(--accent-primary) 10%, transparent);
   color: var(--accent-primary);
   padding: var(--spacing-md);
   border-radius: var(--radius-sm);
@@ -1498,7 +1574,7 @@ button:active:not(:disabled) {
 .modal-content.username-modal input[type=text]:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 .modal-content.username-modal input[type=text]::-moz-placeholder {
   color: var(--text-muted);
@@ -1572,7 +1648,7 @@ button:active:not(:disabled) {
 }
 .choice-btn.flashcard-choice {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
 }
 .choice-btn.flashcard-choice .choice-title {
   color: var(--accent-primary);
@@ -1963,7 +2039,7 @@ button:active:not(:disabled) {
   }
 }
 .ai-chat-panel .chat-options .btn-option-ai:hover:not(:disabled) {
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
   border-color: var(--accent-primary);
   color: var(--accent-primary);
 }
@@ -2143,7 +2219,7 @@ button:active:not(:disabled) {
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
   border-top: 1px solid var(--border-light);
-  background: white;
+  background: var(--bg-light);
 }
 .ai-chat-panel .chat-input-area .chat-input {
   flex: 1;
@@ -2173,7 +2249,7 @@ button:active:not(:disabled) {
 .ai-chat-panel .chat-input-area .chat-input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 .ai-chat-panel .chat-input-area .chat-input:disabled {
   background: var(--bg-light);
@@ -2196,7 +2272,7 @@ button:active:not(:disabled) {
   flex-shrink: 0;
 }
 .ai-chat-panel .chat-input-area .btn-send:hover:not(:disabled) {
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 30%, transparent);
 }
 .ai-chat-panel .chat-input-area .btn-send:active:not(:disabled) {
   transform: scale(0.95);
@@ -2311,16 +2387,20 @@ button:active:not(:disabled) {
   gap: var(--spacing-md);
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .flashcard-section-prompt .prompt-card .buttons-group button,
 .quiz-section-prompt .prompt-card .buttons-group button {
-  padding: var(--spacing-lg) var(--spacing-xl);
   border-radius: var(--radius-btn);
   border: none;
   font-weight: 700;
-  font-size: var(--font-md);
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+  height: 40px;
+  margin: 5px;
 }
 .flashcard-section-prompt .prompt-card .buttons-group button:hover:not(:disabled),
 .quiz-section-prompt .prompt-card .buttons-group button:hover:not(:disabled) {
@@ -2383,7 +2463,7 @@ button:active:not(:disabled) {
 .flashcard-section-header .btn-link:hover,
 .quiz-section-header .btn-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--accent-primary) 30%, transparent);
 }
 .flashcard-section-header .btn-link:active,
 .quiz-section-header .btn-link:active {
@@ -2502,7 +2582,7 @@ button:active:not(:disabled) {
   padding: var(--spacing-md);
   border: 2px solid var(--border-light);
   border-radius: var(--radius-btn);
-  background: white;
+  background: var(--bg-light);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -2555,7 +2635,7 @@ button:active:not(:disabled) {
 .quiz-category-options .word-type-option:hover,
 .quiz-category-options .quiz-category-option:hover {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: color-mix(in srgb, var(--accent-primary) 5%, transparent);
   transform: translateY(-2px);
 }
 .word-type-options .word-type-option:has(input:checked),
@@ -2563,8 +2643,8 @@ button:active:not(:disabled) {
 .quiz-category-options .word-type-option:has(input:checked),
 .quiz-category-options .quiz-category-option:has(input:checked) {
   border-color: var(--accent-primary);
-  background: rgba(99, 102, 241, 0.12);
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+  background: color-mix(in srgb, var(--accent-primary) 12%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 .word-type-options .category-separator,
 .quiz-category-options .category-separator {
@@ -2636,7 +2716,7 @@ button:active:not(:disabled) {
 .count-selection .count-display .count-input-group .count-input:focus {
   outline: none;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 10%, transparent);
 }
 .count-selection .count-display .count-input-group .count-input {
   /* Hide number input toolkit */

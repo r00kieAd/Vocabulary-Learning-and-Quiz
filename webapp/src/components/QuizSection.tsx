@@ -265,12 +265,14 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
           <div className="prompt-card">
             <h2>Welcome to Quiz Mode</h2>
             <p>Let's get started! What's your name?</p>
-            <button
-              className="btn-primary"
-              onClick={() => handleInitialUsername()}
-            >
-              Enter Name
-            </button>
+            <div className="buttons-group">
+              <button
+                className="btn-primary"
+                onClick={() => handleInitialUsername()}
+              >
+                Enter Name
+              </button>
+            </div>
             <button className="btn-secondary" onClick={onExit}>
               Back
             </button>
@@ -315,8 +317,8 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
       <>
         <div className="quiz-section">
           <div className="quiz-section-header">
-            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{color: "rgb(194, 99, 85)"}}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
-            <h2>Put your memory on trial, {username}!</h2></>}
+            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{ color: "rgb(194, 99, 85)" }}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
+              <h2>Put your memory on trial, {username}!</h2></>}
           </div>
 
           <div className="quiz-section-content">
