@@ -1,8 +1,78 @@
 import React, { useState, useEffect } from 'react';
 import { useUsername } from '../hooks/useUsername';
-import { getVocabTypes, getVocabCountByType, getWordsByType, type VocabWord } from '../services/vocabTypes';
+import {
+  getVocabTypes,
+  getVocabCountByType,
+  getWordsByType,
+  getAllVocabs,
+  type VocabWord,
+} from '../services/vocabTypes';
 import { getDefaultWordCount, formatWordTypeLabel } from '../utils/vocabHelpers';
 import QuizScreen from './QuizScreen';
+import { getLearnedWordCount, getLearnedWordIds } from '../services/learnedWords';
+import type { QuizOption, QuizQuestion } from '../types/quiz';
+
+const FALLBACK_DISTRACTOR_MEANINGS = [
+  'A completely different meaning',
+  'The opposite of the correct answer',
+  'An unrelated definition',
+  'A synonym that is not exact',
+];
+
+const shuffleQuizOptions = (options: QuizOption[]): QuizOption[] => {
+  const shuffled = [...options];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.map((option, index) => ({
+    ...option,
+    id: `${index + 1}`,
+  }));
+};
+
+const getDistractorMeanings = (
+  allWords: VocabWord[],
+  correctMeaning: string,
+  count: number
+): string[] => {
+  const uniqueMeanings = Array.from(
+    new Set(allWords.map((word) => word.meaning))
+  ).filter((meaning) => meaning !== correctMeaning);
+
+  const selected: string[] = [];
+  const available = [...uniqueMeanings];
+
+  while (selected.length < count && available.length > 0) {
+    const index = Math.floor(Math.random() * available.length);
+    selected.push(available[index]);
+    available.splice(index, 1);
+  }
+
+  let fallbackIndex = 0;
+  while (selected.length < count && fallbackIndex < FALLBACK_DISTRACTOR_MEANINGS.length) {
+    const fallback = FALLBACK_DISTRACTOR_MEANINGS[fallbackIndex];
+    if (!selected.includes(fallback)) {
+      selected.push(fallback);
+    }
+    fallbackIndex += 1;
+  }
+
+  return selected;
+};
+
+const buildQuizOptions = (word: VocabWord, allWords: VocabWord[]): QuizOption[] => {
+  const distractors = getDistractorMeanings(allWords, word.meaning, 3);
+  const baseOptions: QuizOption[] = [
+    { id: 'correct', text: word.meaning },
+    ...distractors.map((meaning, index) => ({
+      id: `distractor-${index}`,
+      text: meaning,
+    })),
+  ];
+
+  return shuffleQuizOptions(baseOptions);
+};
 
 interface QuizSectionProps {
   onExit: () => void;
@@ -16,13 +86,11 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
     username,
     isLoading: usernameLoading,
     showUsernameModal,
-    setShowUsernameModal,
     usernameInput,
     setUsernameInput,
     handleInitialUsername,
     handleUsernameConfirm,
     handleUsernameCancel,
-    handleRename,
   } = useUsername();
 
   const [currentStep, setCurrentStep] = useState<QuizFlowStep>('username');
@@ -40,8 +108,14 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
   const [maxCount, setMaxCount] = useState(0);
 
   // Quiz data
-  const [quizWords, setQuizWords] = useState<VocabWord[]>([]);
+  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([]);
   const [quizScore, setQuizScore] = useState(0);
+
+  const refreshLearnedWordsCount = (): number => {
+    const count = getLearnedWordCount();
+    setLearnedWordsCount(count);
+    return count;
+  };
 
   // Move to category selection after username is set
   useEffect(() => {
@@ -50,6 +124,12 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
       fetchWordTypesAndCounts();
     }
   }, [usernameLoading, username, currentStep]);
+
+  useEffect(() => {
+    if (currentStep === 'category-selection') {
+      refreshLearnedWordsCount();
+    }
+  }, [currentStep]);
 
   // Fetch word types and their counts in parallel
   const fetchWordTypesAndCounts = async () => {
@@ -74,9 +154,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
       setSelectedCategory('all');
       setMaxCount(totalCount);
       setSelectedCount(getDefaultWordCount(totalCount));
-
-      // TODO: Fetch learned words count from localStorage or API
-      setLearnedWordsCount(0);
+      refreshLearnedWordsCount();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load categories');
     } finally {
@@ -92,7 +170,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
     if (category === 'all') {
       count = Object.values(typeCounts).reduce((a, b) => a + b, 0);
     } else if (category === 'learned') {
-      count = learnedWordsCount;
+      count = refreshLearnedWordsCount();
     } else {
       count = typeCounts[category as string] || 0;
     }
@@ -112,13 +190,28 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
     setLoading(true);
     setError(null);
     try {
+      const allWords = await getAllVocabs();
+      if (allWords.length === 0) {
+        setError('No words available for quiz');
+        return;
+      }
+
       let words: VocabWord[] = [];
 
       if (selectedCategory === 'learned') {
-        // TODO: Fetch learned words
-        console.log('Learned words quiz not yet implemented');
-        setError('Learned words quiz not yet implemented');
-        return;
+        const learnedIds = getLearnedWordIds();
+        if (learnedIds.size === 0) {
+          setError('No learned words yet. Learn some words first!');
+          return;
+        }
+
+        words = allWords.filter((word) => learnedIds.has(word.id));
+        if (words.length === 0) {
+          setError('No learned words yet. Learn some words first!');
+          return;
+        }
+
+        words = words.slice(0, selectedCount);
       } else if (selectedCategory === 'all') {
         // For "All", fetch from each type and combine
         const typePromises = wordTypes.map((type) =>
@@ -137,37 +230,21 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
       }
 
       // Convert to quiz format with options
-      const quizQuestions = words.map((word) => ({
+      const generatedQuizQuestions = words.map((word) => ({
         vocabId: word.id,
         word: word.word,
         wordType: word.word_type,
         correctAnswer: word.meaning,
-        options: [
-          { id: '1', text: word.meaning },
-          { id: '2', text: generateFakeOption(word.meaning) },
-          { id: '3', text: generateFakeOption(word.meaning) },
-          { id: '4', text: generateFakeOption(word.meaning) },
-        ].sort(() => Math.random() - 0.5),
+        options: buildQuizOptions(word, allWords),
       }));
 
-      setQuizWords(quizQuestions);
+      setQuizQuestions(generatedQuizQuestions);
       setCurrentStep('quiz');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load words');
     } finally {
       setLoading(false);
     }
-  };
-
-  // Generate fake option (placeholder - replace with real logic)
-  const generateFakeOption = (correctAnswer: string): string => {
-    const fakeOptions = [
-      'A completely different meaning',
-      'The opposite of the correct answer',
-      'An unrelated definition',
-      'A synonym that is not exact',
-    ];
-    return fakeOptions[Math.floor(Math.random() * fakeOptions.length)];
   };
 
   // Render loading state
@@ -238,7 +315,8 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
       <>
         <div className="quiz-section">
           <div className="quiz-section-header">
-            <h2>Put your memory on trial, {username}!</h2>
+            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{color: "rgb(194, 99, 85)"}}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
+            <h2>Put your memory on trial, {username}!</h2></>}
           </div>
 
           <div className="quiz-section-content">
@@ -301,7 +379,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
                       name="quiz-category"
                       value="learned"
                       checked={selectedCategory === 'learned'}
-                      onChange={(e) => handleCategoryChange('learned')}
+                      onChange={() => handleCategoryChange('learned')}
                     />
                     <span className="label-text">
                       <span className="category-name">Learned Words</span>
@@ -397,13 +475,13 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
   if (currentStep === 'quiz') {
     return (
       <QuizScreen
-        questions={quizWords}
+        questions={quizQuestions}
         onQuizEnd={(score) => {
           setQuizScore(score);
           setCurrentStep('results');
         }}
         onQuit={() => {
-          setQuizWords([]);
+          setQuizQuestions([]);
           setCurrentStep('category-selection');
         }}
         quizMode={selectedCategory === 'learned' ? 'flashcard' : 'random'}
@@ -413,7 +491,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
 
   // Results screen
   if (currentStep === 'results') {
-    const totalQuestions = quizWords.length;
+    const totalQuestions = quizQuestions.length;
     const percentage = totalQuestions > 0 ? Math.round((quizScore / totalQuestions) * 100) : 0;
 
     return (
@@ -441,7 +519,7 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
             <button
               className="btn-primary"
               onClick={() => {
-                setQuizWords([]);
+                setQuizQuestions([]);
                 setCurrentStep('category-selection');
               }}
             >

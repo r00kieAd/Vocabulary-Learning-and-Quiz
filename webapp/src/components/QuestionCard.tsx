@@ -1,14 +1,10 @@
 import React from 'react';
-
-interface Option {
-  id: string;
-  text: string;
-}
+import type { QuizOption } from '../types/quiz';
 
 interface QuestionCardProps {
   word: string;
   wordType: string;
-  options: Option[];
+  options: QuizOption[];
   selectedOption: string | null;
   answeredCorrectly: boolean | null;
   onSelectOption: (optionId: string) => void;

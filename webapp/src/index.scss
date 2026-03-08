@@ -317,6 +317,7 @@ button {
    ======================================== */
 
 @keyframes ellipses {
+
   0%,
   20% {
     content: '';
@@ -868,6 +869,10 @@ button {
         border-radius: 20px;
         font-size: var(--font-sm);
         font-weight: 600;
+
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
       }
     }
 
@@ -1349,6 +1354,10 @@ button {
   gap: var(--spacing-xl);
   animation: slideIn 0.3s ease-out;
 
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
   .header {
     text-align: center;
     color: white;
@@ -1391,6 +1400,7 @@ button {
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
+      max-width: max-content;
     }
 
     @media (max-width: 500px) {
@@ -1859,6 +1869,10 @@ button {
   width: 100%;
   max-width: 700px;
   margin: 0 auto;
+
+  @media screen and (max-width: 500px) {
+    max-width: 100%;
+  }
 }
 
 .flashcard-header {
@@ -1870,6 +1884,7 @@ button {
   padding: var(--spacing-md) var(--spacing-lg);
   box-shadow: var(--shadow-soft);
   transition: all 0.4s ease;
+  width: inherit;
 
   &.chat-open {
     flex-direction: column;
@@ -1882,6 +1897,7 @@ button {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
+    width: inherit;
 
     .progress-badge {
       background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
@@ -1984,6 +2000,7 @@ button {
   border-radius: var(--radius-card);
   padding: var(--spacing-md) var(--spacing-lg);
   box-shadow: var(--shadow-soft);
+  width: inherit;
 
   .progress-bar {
     width: 100%;
@@ -2014,6 +2031,7 @@ button {
   perspective: 1000px;
   min-height: 300px;
   transition: all 0.4s ease;
+  width: inherit;
 }
 
 .flashcard {
@@ -2318,7 +2336,12 @@ button {
           max-width: 85%;
 
           /* Markdown styles */
-          h1, h2, h3, h4, h5, h6 {
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
             margin: var(--spacing-sm) 0;
             font-weight: 700;
             line-height: 1.4;
@@ -2332,7 +2355,10 @@ button {
             font-size: var(--font-sm);
           }
 
-          h3, h4, h5, h6 {
+          h3,
+          h4,
+          h5,
+          h6 {
             font-size: var(--font-xs);
           }
 
@@ -2340,7 +2366,8 @@ button {
             margin: var(--spacing-sm) 0;
           }
 
-          ul, ol {
+          ul,
+          ol {
             margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
             padding-left: var(--spacing-lg);
           }
@@ -2402,7 +2429,8 @@ button {
             margin: var(--spacing-sm) 0;
             width: 100%;
 
-            th, td {
+            th,
+            td {
               border: 1px solid var(--border-light);
               padding: var(--spacing-sm);
               text-align: left;
@@ -2536,6 +2564,8 @@ button {
    FLASHCARD SECTION STYLES
    ======================================== */
 
+
+
 .flashcard-section-loader,
 .flashcard-section-prompt,
 .flashcard-section,
@@ -2549,9 +2579,14 @@ button {
   gap: var(--spacing-lg);
   animation: slideIn 0.3s ease-out;
   padding: var(--spacing-lg);
-  // width: 700px;
   max-width: 700px;
   margin: 0 auto;
+
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    max-width: 100%;
+    padding: 1px;
+  }
 }
 
 .flashcard-section-header {
@@ -2563,6 +2598,7 @@ button {
   justify-content: center;
   align-items: center;
   min-height: 400px;
+  width: inherit;
 
   .loader-spinner {
     width: 50px;
@@ -2699,6 +2735,10 @@ button {
   }
 }
 
+.flashcard-section-content {
+  width: 100%;
+}
+
 .flashcard-section-content,
 .quiz-section-content {
   background: var(--card-bg);
@@ -2706,6 +2746,12 @@ button {
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
+  
+
+  @media screen and (max-width: 500px) {
+      width: 100%;
+      max-width: 100%;
+    }
 
   h3 {
     color: var(--text-dark);

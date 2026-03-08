@@ -2,19 +2,7 @@ import React, { useState } from 'react';
 import ProgressHeader from './ProgressHeader';
 import QuestionCard from './QuestionCard';
 import FeedbackToast from './FeedbackToast';
-
-interface Option {
-  id: string;
-  text: string;
-}
-
-interface QuizQuestion {
-  vocabId: number;
-  word: string;
-  wordType: string;
-  correctAnswer: string;
-  options: Option[];
-}
+import type { QuizQuestion } from '../types/quiz';
 
 interface QuizScreenProps {
   questions: QuizQuestion[];
@@ -54,7 +42,9 @@ export const QuizScreen: React.FC<QuizScreenProps> = ({
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
 
   const handleOptionSelect = (optionId: string) => {
-    const isCorrect = optionId === currentQuestion.correctAnswer;
+    const selectedText =
+      currentQuestion.options.find((option) => option.id === optionId)?.text ?? '';
+    const isCorrect = selectedText === currentQuestion.correctAnswer;
     setSelectedOption(optionId);
     setAnsweredCorrectly(isCorrect);
     setShowFeedback(true);

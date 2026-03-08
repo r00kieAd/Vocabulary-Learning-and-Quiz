@@ -756,6 +756,11 @@ button:active:not(:disabled) {
   font-size: var(--font-sm);
   font-weight: 600;
 }
+@media screen and (max-width: 500px) {
+  .quiz-screen .progress-header .question-counter .mode-badge {
+    display: none;
+  }
+}
 .quiz-screen .progress-header .hearts {
   display: flex;
   gap: var(--spacing-sm);
@@ -1147,6 +1152,11 @@ button:active:not(:disabled) {
   gap: var(--spacing-xl);
   animation: slideIn 0.3s ease-out;
 }
+@media (max-width: 768px) {
+  .home-screen {
+    width: 100%;
+  }
+}
 .home-screen .header {
   text-align: center;
   color: white;
@@ -1184,6 +1194,8 @@ button:active:not(:disabled) {
 @media (max-width: 768px) {
   .home-screen .mode-selector {
     grid-template-columns: 1fr;
+    max-width: -moz-max-content;
+    max-width: max-content;
   }
 }
 @media (max-width: 500px) {
@@ -1594,6 +1606,11 @@ button:active:not(:disabled) {
   max-width: 700px;
   margin: 0 auto;
 }
+@media screen and (max-width: 500px) {
+  .flashcard-mode-screen {
+    max-width: 100%;
+  }
+}
 
 .flashcard-header {
   display: flex;
@@ -1604,6 +1621,7 @@ button:active:not(:disabled) {
   padding: var(--spacing-md) var(--spacing-lg);
   box-shadow: var(--shadow-soft);
   transition: all 0.4s ease;
+  width: inherit;
 }
 .flashcard-header.chat-open {
   flex-direction: column;
@@ -1615,6 +1633,7 @@ button:active:not(:disabled) {
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  width: inherit;
 }
 .flashcard-header .progress-info .progress-badge {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
@@ -1704,6 +1723,7 @@ button:active:not(:disabled) {
   border-radius: var(--radius-card);
   padding: var(--spacing-md) var(--spacing-lg);
   box-shadow: var(--shadow-soft);
+  width: inherit;
 }
 .progress-bar-container .progress-bar {
   width: 100%;
@@ -1731,6 +1751,7 @@ button:active:not(:disabled) {
   perspective: 1000px;
   min-height: 300px;
   transition: all 0.4s ease;
+  width: inherit;
 }
 
 .flashcard {
@@ -2011,7 +2032,12 @@ button:active:not(:disabled) {
   max-width: 85%;
   /* Markdown styles */
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h1, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h1,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
   margin: var(--spacing-sm) 0;
   font-weight: 700;
   line-height: 1.4;
@@ -2022,13 +2048,17 @@ button:active:not(:disabled) {
 .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h2 {
   font-size: var(--font-sm);
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h3,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h4,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h5,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content h6 {
   font-size: var(--font-xs);
 }
 .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content p {
   margin: var(--spacing-sm) 0;
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ul, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ol {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ul,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content ol {
   margin: var(--spacing-sm) 0 var(--spacing-sm) var(--spacing-lg);
   padding-left: var(--spacing-lg);
 }
@@ -2080,7 +2110,8 @@ button:active:not(:disabled) {
   margin: var(--spacing-sm) 0;
   width: 100%;
 }
-.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table th, .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table td {
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table th,
+.ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content table td {
   border: 1px solid var(--border-light);
   padding: var(--spacing-sm);
   text-align: left;
@@ -2204,6 +2235,18 @@ button:active:not(:disabled) {
   max-width: 700px;
   margin: 0 auto;
 }
+@media screen and (max-width: 500px) {
+  .flashcard-section-loader,
+  .flashcard-section-prompt,
+  .flashcard-section,
+  .quiz-section-loader,
+  .quiz-section-prompt,
+  .quiz-section {
+    width: 100%;
+    max-width: 100%;
+    padding: 1px;
+  }
+}
 
 .flashcard-section-header {
   width: 100%;
@@ -2214,6 +2257,7 @@ button:active:not(:disabled) {
   justify-content: center;
   align-items: center;
   min-height: 400px;
+  width: inherit;
 }
 .flashcard-section-loader .loader-spinner,
 .quiz-section-loader .loader-spinner {
@@ -2350,6 +2394,10 @@ button:active:not(:disabled) {
   display: none;
 }
 
+.flashcard-section-content {
+  width: 100%;
+}
+
 .flashcard-section-content,
 .quiz-section-content {
   background: var(--card-bg);
@@ -2357,6 +2405,13 @@ button:active:not(:disabled) {
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-soft);
   overflow: hidden;
+}
+@media screen and (max-width: 500px) {
+  .flashcard-section-content,
+  .quiz-section-content {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 .flashcard-section-content h3,
 .quiz-section-content h3 {

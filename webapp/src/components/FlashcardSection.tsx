@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useUsername } from '../hooks/useUsername';
-import { getVocabTypes, getVocabCountByType, getWordsByType, type VocabWord } from '../services/vocabTypes';
+import { getVocabTypes, getVocabCountByType, getWordsByType, getAllVocabs, type VocabWord } from '../services/vocabTypes';
 import { getDefaultWordCount, formatWordTypeLabel } from '../utils/vocabHelpers';
 import { getLearnedWordCount, getLearnedWordIds } from '../services/learnedWords';
 import FlashcardScreen from './FlashcardScreen';
@@ -115,16 +115,14 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
       let words: VocabWord[] = [];
 
       if (selectedType === 'learned') {
-        // Fetch learned words by their IDs
         const learnedIds = getLearnedWordIds();
         if (learnedIds.size === 0) {
           setError('No learned words yet. Start by learning new words!');
           setLoading(false);
           return;
         }
-        
-        // Fetch all vocabs and filter by learned IDs
-        const allWords = await getWordsByType('all');
+
+        const allWords = await getAllVocabs();
         words = allWords
           .filter(word => learnedIds.has(word.id))
           .slice(0, selectedCount);
@@ -223,10 +221,11 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
       <>
         <div className="flashcard-section">
           <div className="flashcard-section-header">
+            {loading ? "please wait..." : error ? <><i className="fa-solid fa-bug" style={{color: "rgb(194, 99, 85)"}}>&nbsp;E&nbsp;rr&nbsp;or</i></> : <>
             <h2>Let's flip some cards, {username}!</h2>
             <button className="btn-link" onClick={() => handleRename()}>
-              Rename
-            </button>
+              <i className="fa-solid fa-user-pen"></i>
+            </button></>}
           </div>
 
           <div className="flashcard-section-content">
