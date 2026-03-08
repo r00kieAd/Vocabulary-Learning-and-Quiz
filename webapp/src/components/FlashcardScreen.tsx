@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { AIChatPanel } from './AIChatPanel';
 import { fetchAndPlayTTS } from '../services/ttsAudio';
+import { addLearnedWord } from '../services/learnedWords';
 
 interface FlashcardQuestion {
   vocabId: number;
@@ -23,14 +24,15 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   questions,
   onFinish,
   onWordLearned,
-  learnedCount = 0,
-  totalCount = 0,
+  // learnedCount = 0,
+  // totalCount = 0,
   onClearLearned,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [audioState, setAudioState] = useState<'idle' | 'loading' | 'playing' | 'error'>('idle');
+  const [sessionLearnedCount, setSessionLearnedCount] = useState(0);
   const trackedWordsRef = useRef<Set<number>>(new Set());
   const chatPanelRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,7 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   // Reset tracking ref when new session starts (questions change)
   useEffect(() => {
     trackedWordsRef.current = new Set();
+    setSessionLearnedCount(0);
     // console.log('Fresh flashcard session started - tracking ref reset');
   }, [questions.length]);
 
@@ -59,6 +62,9 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
   useEffect(() => {
     if (currentCard && isFlipped && !trackedWordsRef.current.has(currentCard.vocabId)) {
       trackedWordsRef.current.add(currentCard.vocabId);
+      setSessionLearnedCount(trackedWordsRef.current.size);
+      // Store learned word to localStorage
+      addLearnedWord(currentCard.vocabId);
       // console.log('Card FLIPPED and learned:', currentCard.word, 'ID:', currentCard.vocabId);
       if (onWordLearned) {
         onWordLearned(currentCard.vocabId);
@@ -76,7 +82,7 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
           <p>You've learned all available words. Clear learned words to start fresh.</p>
           {onClearLearned && (
             <button className="btn-primary" onClick={onClearLearned}>
-              Clear Learned Words & Go Home
+              Go Home
             </button>
           )}
         </div>
@@ -172,9 +178,9 @@ export const FlashcardScreen: React.FC<FlashcardScreenProps> = ({
       </div>
       <div className="progress-bar-container">
         <div className="progress-bar">
-          <div className="progress-fill" style={{ width: `${(learnedCount / (totalCount || questions.length)) * 100}%` }}></div>
+          <div className="progress-fill" style={{ width: `${(sessionLearnedCount / questions.length) * 100}%` }}></div>
         </div>
-        <span className="progress-label">{learnedCount} / {totalCount || questions.length} words learned</span>
+        <span className="progress-label">{sessionLearnedCount} / {questions.length} words learned in this session</span>
       </div>
       <div className="flashcard-container">
         <div

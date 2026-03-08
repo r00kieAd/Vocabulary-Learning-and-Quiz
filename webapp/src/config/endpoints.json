@@ -1,6 +1,9 @@
 {
     "PING": "/",
     "VOCABS": "/vocabs/read/",
+    "VOCAB_TYPES": "/vocabs/read/vocab_types",
+    "VOCAB_TYPE_COUNT": "/vocabs/read/count/{word_type}",
+    "VOCAB_BY_TYPE": "/vocabs/read/{word_type}?word_count=",
     "SCORES": "/scores/all_scores/",
     "HIGH_SCORE": "/scores/high_score/",
     "INSERT_SCORE": "/scores/insert_score/",
