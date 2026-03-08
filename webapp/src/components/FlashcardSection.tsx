@@ -16,7 +16,6 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
     username,
     isLoading: usernameLoading,
     showUsernameModal,
-    setShowUsernameModal,
     usernameInput,
     setUsernameInput,
     handleInitialUsername,
@@ -288,7 +287,7 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
                       name="word-type"
                       value="learned"
                       checked={selectedType === 'learned'}
-                      onChange={(e) => handleTypeChange('learned')}
+                      onChange={() => handleTypeChange('learned')}
                     />
                     <span className="label-text">
                       <span className="type-name">Learned Words</span>
