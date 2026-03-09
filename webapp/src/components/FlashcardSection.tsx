@@ -178,7 +178,7 @@ export const FlashcardSection: React.FC<FlashcardSectionProps> = ({ onExit }) =>
                 Enter Name
               </button>
               <button className="btn-secondary" onClick={onExit}>
-                Back
+                <><i className="fa-solid fa-house"></i></>
               </button>
             </div>
           </div>
