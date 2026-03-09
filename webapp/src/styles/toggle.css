@@ -42,6 +42,13 @@
         transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
+.theme-toggle-label {
+    margin: .5rem 0;
+    @media screen and (max-width: 500px) {
+        text-align: center;
+    }
+}
+
 .theme-option input {
     position: absolute;
     opacity: 0;
@@ -73,6 +80,6 @@
     width: 100px;
     @media screen and (max-width: 500px) {
         font-size: 11px;
-        width: 70px;
+        width: 60px;
     }
 }
