@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import GradientText from './GradientText';
 import Toggle from './toggle';
 import vocab from '../assets/book1.svg';
+import { useGlobal } from '../context/globalContext';
 
 interface HomeScreenProps {
   onSelectMode: (mode: 'flashcard' | 'mcq') => void;
@@ -16,6 +17,16 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   highScorer,
   topScores,
 }) => {
+  const [color1, setColor1] = useState<string>('');
+  const [color2, setColor2] = useState<string>('');
+  const [color3, setColor3] = useState<string>('');
+  const { activeTheme } = useGlobal();
+  useEffect(() => {
+    const styles = getComputedStyle(document.documentElement);
+    setColor1(styles.getPropertyValue('--accent-primary'));
+    setColor2(styles.getPropertyValue('--accent-secondary'));
+    setColor3(styles.getPropertyValue('--accent-dark-blue'));
+  }, [activeTheme])
   return (
     <div className="home-screen">
       <div className="header">
@@ -23,7 +34,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           <div className="header-img">
             <img src={vocab} alt="" />
           </div>
-          <GradientText animationSpeed={5} className="custom-class">
+          <GradientText animationSpeed={4} className="custom-class" colors={[color1, color2, color3]}>
             <h1 className='header-title'>Vocabulary</h1>
           </GradientText>
         </div>
