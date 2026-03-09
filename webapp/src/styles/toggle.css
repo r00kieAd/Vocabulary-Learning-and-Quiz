@@ -1,0 +1,78 @@
+.theme-toggle {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--spacing-xs);
+    max-width: min(500px, 90%);
+}
+
+.theme-toggle-label {
+    font-size: var(--font-sm);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.theme-toggle-menu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.theme-option {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100px;
+    height: 40px;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--radius-btn);
+    border: 2px solid transparent;
+    background: var(--bg-light);
+    color: var(--text-dark);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease,
+        transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.theme-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.theme-option:hover {
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+}
+
+.theme-option.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-primary) 20%, transparent);
+}
+
+.theme-toggle-menu {
+    justify-content: space-between;
+    flex-direction: row;
+
+    @media screen and (max-width: 500px) {
+        justify-content: center;
+    }
+}
+
+.theme-option {
+    width: 100px;
+    @media screen and (max-width: 500px) {
+        font-size: 11px;
+        width: 70px;
+    }
+}

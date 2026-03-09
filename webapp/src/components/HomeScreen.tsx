@@ -1,5 +1,6 @@
 import React from 'react';
 import GradientText from './GradientText';
+import Toggle from './toggle';
 import vocab from '../assets/book1.svg';
 
 interface HomeScreenProps {
@@ -85,6 +86,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           </div>
         )}
       </div>
+
+      <Toggle />
 
       {/* Debug: Show learned words from localStorage - COMMENTED OUT */}
       {/* <div style={{ 

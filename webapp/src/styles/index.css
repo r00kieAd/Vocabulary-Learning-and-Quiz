@@ -52,79 +52,79 @@
 }
 
 :root[data-theme=dark] {
-  --bg-gradient-start: #222831;
-  --bg-gradient-end: #393E46;
-  --bg-gradient-start-light: #222831;
-  --bg-gradient-end-light: #393E46;
-  --card-bg: #393E46;
-  --card-bg-semi: rgba(57, 62, 70, 0.9);
-  --accent-primary: #DFD0B8;
-  --accent-secondary: #948979;
-  --accent-pink: #DFD0B8;
-  --accent-dark-blue: #DFD0B8;
-  --text-dark: #DFD0B8;
-  --text-muted: #948979;
-  --text-faded: #393E46;
-  --border-light: #948979;
-  --bg-light: #222831;
+  --bg-gradient-start: #005461;
+  --bg-gradient-end: #0C7779;
+  --bg-gradient-start-light: #005461;
+  --bg-gradient-end-light: #0C7779;
+  --card-bg: #249E94;
+  --card-bg-semi: rgba(36, 158, 148, 0.9);
+  --accent-primary: #0C7779;
+  --accent-secondary: #249E94;
+  --accent-pink: #3BC1A8;
+  --accent-dark-blue: #0C7779;
+  --text-dark: #FFFFFF;
+  --text-muted: #002F34;
+  --text-faded: #3BC1A8;
+  --border-light: #3BC1A8;
+  --bg-light: #3BC1A8;
   --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme=ocean] {
-  --bg-gradient-start: #1B3C53;
-  --bg-gradient-end: #234C6A;
-  --bg-gradient-start-light: #1B3C53;
-  --bg-gradient-end-light: #234C6A;
-  --card-bg: #234C6A;
-  --card-bg-semi: rgba(35, 76, 106, 0.9);
-  --accent-primary: #456882;
-  --accent-secondary: #D2C1B6;
-  --accent-pink: #456882;
-  --accent-dark-blue: #456882;
-  --text-dark: #D2C1B6;
-  --text-muted: #456882;
-  --text-faded: #234C6A;
-  --border-light: #456882;
-  --bg-light: #1B3C53;
-  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --bg-gradient-start: #005461;
+  --bg-gradient-end: #0C7779;
+  --bg-gradient-start-light: #005461;
+  --bg-gradient-end-light: #0C7779;
+  --card-bg: #249E94;
+  --card-bg-semi: rgba(36, 158, 148, 0.9);
+  --accent-primary: #0C7779;
+  --accent-secondary: #249E94;
+  --accent-pink: #3BC1A8;
+  --accent-dark-blue: #0C7779;
+  --text-dark: #FFFFFF;
+  --text-muted: #002F34;
+  --text-faded: #3BC1A8;
+  --border-light: #3BC1A8;
+  --bg-light: #3BC1A8;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme=light] {
-  --bg-gradient-start: #F5EFE6;
-  --bg-gradient-end: #E8DFCA;
-  --bg-gradient-start-light: #F5EFE6;
-  --bg-gradient-end-light: #E8DFCA;
-  --card-bg: #E8DFCA;
-  --card-bg-semi: rgba(232, 223, 202, 0.9);
-  --accent-primary: #6D94C5;
-  --accent-secondary: #CBDCEB;
-  --accent-pink: #6D94C5;
-  --accent-dark-blue: #6D94C5;
-  --text-dark: #2C2C2C;
-  --text-muted: #6D94C5;
-  --text-faded: #E8DFCA;
-  --border-light: #CBDCEB;
-  --bg-light: #F5EFE6;
-  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --bg-gradient-start: #005461;
+  --bg-gradient-end: #0C7779;
+  --bg-gradient-start-light: #005461;
+  --bg-gradient-end-light: #0C7779;
+  --card-bg: #249E94;
+  --card-bg-semi: rgba(36, 158, 148, 0.9);
+  --accent-primary: #0C7779;
+  --accent-secondary: #249E94;
+  --accent-pink: #3BC1A8;
+  --accent-dark-blue: #0C7779;
+  --text-dark: #FFFFFF;
+  --text-muted: #002F34;
+  --text-faded: #3BC1A8;
+  --border-light: #3BC1A8;
+  --bg-light: #3BC1A8;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 :root[data-theme=earth] {
-  --bg-gradient-start: #3E3F29;
-  --bg-gradient-end: #7D8D86;
-  --bg-gradient-start-light: #3E3F29;
-  --bg-gradient-end-light: #7D8D86;
-  --card-bg: #BCA88D;
-  --card-bg-semi: rgba(188, 168, 141, 0.9);
-  --accent-primary: #3E3F29;
-  --accent-secondary: #7D8D86;
-  --accent-pink: #3E3F29;
-  --accent-dark-blue: #3E3F29;
-  --text-dark: #F1F0E4;
-  --text-muted: #7D8D86;
-  --text-faded: #BCA88D;
-  --border-light: #BCA88D;
-  --bg-light: #F1F0E4;
-  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --bg-gradient-start: #005461;
+  --bg-gradient-end: #0C7779;
+  --bg-gradient-start-light: #005461;
+  --bg-gradient-end-light: #0C7779;
+  --card-bg: #249E94;
+  --card-bg-semi: rgba(36, 158, 148, 0.9);
+  --accent-primary: #0C7779;
+  --accent-secondary: #249E94;
+  --accent-pink: #3BC1A8;
+  --accent-dark-blue: #0C7779;
+  --text-dark: #FFFFFF;
+  --text-muted: #002F34;
+  --text-faded: #3BC1A8;
+  --border-light: #3BC1A8;
+  --bg-light: #3BC1A8;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.35);
 }
 
 /* ========================================
@@ -453,7 +453,7 @@ button:active:not(:disabled) {
 }
 
 .bg-white {
-  background: white;
+  background: var(--bg-light);
 }
 
 .bg-gradient {
@@ -585,7 +585,7 @@ button:active:not(:disabled) {
   animation: ellipses 1.2s steps(4, end) infinite;
 }
 .fullscreen-loader .text {
-  color: white;
+  color: black;
   font-size: var(--font-lg);
   font-weight: 500;
 }
@@ -932,7 +932,7 @@ button:active:not(:disabled) {
   width: 100%;
   padding: var(--spacing-md);
   border-radius: var(--radius-btn);
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
   font-size: var(--font-md);
@@ -969,7 +969,7 @@ button:active:not(:disabled) {
   bottom: var(--spacing-lg);
   left: 50%;
   transform: translateX(-50%);
-  background: white;
+  background: var(--card-bg);
   border-radius: var(--radius-card);
   padding: var(--spacing-lg) var(--spacing-xl);
   box-shadow: var(--shadow-lg);
@@ -1120,7 +1120,7 @@ button:active:not(:disabled) {
   box-shadow: 0 8px 16px color-mix(in srgb, var(--accent-primary) 30%, transparent);
 }
 .completion-screen .action-buttons button.btn-home {
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
 }
@@ -1546,7 +1546,7 @@ button:active:not(:disabled) {
   color: white;
 }
 .modal-content .modal-buttons button.btn-secondary {
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
 }
@@ -1632,7 +1632,7 @@ button:active:not(:disabled) {
 }
 
 .choice-btn {
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   border-radius: var(--radius-card);
   padding: var(--spacing-lg);
@@ -2007,7 +2007,7 @@ button:active:not(:disabled) {
   }
 }
 .ai-chat-panel .chat-options .btn-option-ai {
-  background: white;
+  background: var(--bg-light);
   border: 1px solid var(--border-light);
   color: var(--text-dark);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -2101,8 +2101,8 @@ button:active:not(:disabled) {
   justify-content: flex-start;
 }
 .ai-chat-panel .chat-messages .chat-message.chat-message-ai .message-content {
-  background: white;
-  color: var(--text-dark);
+  background: var(--bg-light);
+  color: var(--text-muted);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm) var(--radius-btn) var(--radius-btn) var(--radius-btn);
   max-width: 85%;
@@ -2423,7 +2423,7 @@ button:active:not(:disabled) {
 }
 .flashcard-section-prompt .prompt-card .buttons-group button.btn-secondary,
 .quiz-section-prompt .prompt-card .buttons-group button.btn-secondary {
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
 }
@@ -2775,7 +2775,7 @@ button:active:not(:disabled) {
   color: white;
 }
 .buttons-group .btn-secondary {
-  background: white;
+  background: var(--bg-light);
   border: 2px solid var(--border-light);
   color: var(--text-dark);
 }
