@@ -272,10 +272,11 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
               >
                 Enter Name
               </button>
+              <button className="btn-secondary" onClick={onExit}>
+                <><i className="fa-solid fa-house"></i></>
+              </button>
             </div>
-            <button className="btn-secondary" onClick={onExit}>
-              Back
-            </button>
+
           </div>
         </div>
 
