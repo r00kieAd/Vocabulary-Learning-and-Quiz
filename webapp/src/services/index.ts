@@ -2,7 +2,7 @@
 export { pingServer } from './pingServer';
 export { fetchVocabs } from './fetchVocabs';
 export { fetchScores } from './fetchScores';
-export { fetchHighScore } from './fetchHighScore';
+export { fetchHighScores } from './fetchHighScore';
 export { insertScore } from './insertScore';
 
 export type { Vocab, Score, ApiResponse } from './types';

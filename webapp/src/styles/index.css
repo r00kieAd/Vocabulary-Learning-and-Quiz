@@ -1373,38 +1373,42 @@ button:active:not(:disabled) {
   font-weight: 700;
   color: var(--accent-primary);
 }
+.home-screen .high-score-card .scores-table tbody .leader-row {
+  background: color-mix(in srgb, var(--accent-primary) 15%, var(--card-bg));
+}
 @media (max-width: 500px) {
-  .home-screen .high-score-card {
+  .home-screen {
     padding: var(--spacing-md);
   }
-  .home-screen .high-score-card .scores-table thead th {
+  .home-screen .scores-table thead th {
     padding: var(--spacing-sm);
     font-size: var(--font-xs);
   }
-  .home-screen .high-score-card .scores-table tbody td {
+  .home-screen .scores-table tbody td {
     padding: var(--spacing-sm);
     font-size: var(--font-sm);
   }
 }
-.home-screen .top-scores-card {
+
+.top-scores-card {
   background: var(--card-bg);
   border-radius: var(--radius-card);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-soft);
 }
-.home-screen .top-scores-card .label {
+.top-scores-card .label {
   color: var(--text-muted);
   font-size: var(--font-sm);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: var(--spacing-md);
 }
-.home-screen .top-scores-card .top-scores-list {
+.top-scores-card .top-scores-list {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
 }
-.home-screen .top-scores-card .top-score-item {
+.top-scores-card .top-score-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1412,17 +1416,17 @@ button:active:not(:disabled) {
   background: var(--bg-light);
   border-radius: var(--radius-sm);
 }
-.home-screen .top-scores-card .top-score-item .rank {
+.top-scores-card .top-score-item .rank {
   font-weight: 700;
   color: var(--accent-primary);
   min-width: 30px;
 }
-.home-screen .top-scores-card .top-score-item .username {
+.top-scores-card .top-score-item .username {
   flex: 1;
   color: var(--text-dark);
   font-weight: 600;
 }
-.home-screen .top-scores-card .top-score-item .score {
+.top-scores-card .top-score-item .score {
   font-weight: 700;
   color: var(--accent-primary);
 }
