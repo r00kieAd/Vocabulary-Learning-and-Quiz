@@ -1596,6 +1596,11 @@ button {
             }
           }
         }
+
+        .leader-row {
+          background: color-mix(in srgb, var(--accent-primary) 15%, var(--card-bg));
+        }
+        }
       }
     }
 
@@ -1662,7 +1667,7 @@ button {
       }
     }
   }
-}
+
 
 /* ========================================
    MODAL STYLES

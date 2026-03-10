@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { pingServer, fetchVocabs, fetchScores, fetchHighScore, insertScore } from '../services';
+import { pingServer, fetchVocabs, fetchScores, fetchHighScores, insertScore } from '../services';
 import type { Vocab, Score } from '../services';
 import FullscreenLoader from './FullscreenLoader';
 import PingError from './PingError';
@@ -12,12 +12,18 @@ export const PingGate: React.FC = () => {
   const [error, setError] = useState<string>('');
   const [vocabs, setVocabs] = useState<Vocab[]>([]);
   const [highScore, setHighScore] = useState<Score | null>(null);
+  const [topScores, setTopScores] = useState<Score[]>([]);
 
   const refreshHighScore = async () => {
     try {
-      const highScoreResult = await fetchHighScore();
-      if (highScoreResult.status && highScoreResult.data) {
-        setHighScore(highScoreResult.data);
+      const highScoreResult = await fetchHighScores();
+      if (highScoreResult.status && highScoreResult.data && highScoreResult.data.length > 0) {
+        const sorted = [...highScoreResult.data].sort(
+          (a, b) => b.high_score - a.high_score
+        );
+        const topThree = sorted.slice(0, 3);
+        setTopScores(topThree);
+        setHighScore(topThree[0]);
       }
     } catch (err) {
       console.error('Failed to refresh high score:', err);
@@ -39,7 +45,7 @@ export const PingGate: React.FC = () => {
         const [vocabsResult, , highScoreResult] = await Promise.all([
           fetchVocabs(),
           fetchScores(),
-          fetchHighScore(),
+          fetchHighScores(),
         ]);
 
         if (!vocabsResult.status || !vocabsResult.data) {
@@ -50,8 +56,13 @@ export const PingGate: React.FC = () => {
 
         setVocabs(vocabsResult.data);
         
-        if (highScoreResult.status && highScoreResult.data) {
-          setHighScore(highScoreResult.data);
+        if (highScoreResult.status && highScoreResult.data?.length) {
+          const sorted = [...highScoreResult.data].sort(
+            (a, b) => b.high_score - a.high_score
+          );
+          const topThree = sorted.slice(0, 3);
+          setTopScores(topThree);
+          setHighScore(topThree[0] || null);
         }
 
         setAppState('ready');
@@ -78,15 +89,16 @@ export const PingGate: React.FC = () => {
     return <PingError error={error} onRetry={handleRetry} />;
   }
 
-  return (
-    <GameShell
-      vocabs={vocabs}
-      highScore={highScore?.high_score || 0}
-      highScorer={highScore?.high_scorer || 'None'}
-      onScoreInsert={insertScore}
-      onRefreshHighScore={refreshHighScore}
-    />
-  );
-};
+    return (
+      <GameShell
+        vocabs={vocabs}
+        highScore={highScore?.high_score || 0}
+        highScorer={highScore?.high_scorer || 'None'}
+        topScores={topScores}
+        onScoreInsert={insertScore}
+        onRefreshHighScore={refreshHighScore}
+      />
+    );
+  };
 
 export default PingGate;

@@ -3,12 +3,13 @@ import GradientText from './GradientText';
 import Toggle from './toggle';
 import vocab from '../assets/book1.svg';
 import { useGlobal } from '../context/globalContext';
+import type { Score } from '../services';
 
 interface HomeScreenProps {
   onSelectMode: (mode: 'flashcard' | 'mcq') => void;
   highScore: number;
   highScorer: string;
-  topScores: Array<{ score: number; username: string }>;
+  topScores: Score[];
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -62,9 +63,31 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
       </div>
 
       <div className="scores-section">
-        {highScore > 0 && (
-          <div className="high-score-card">
-            <div className="label">High Score</div>
+        <div className="high-score-card">
+          <div className="label">Leaderboard</div>
+          {topScores.length > 0 ? (
+            <table className="scores-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Name</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {topScores.map((item, idx) => (
+                  <tr
+                    key={item.high_scorer + item.high_score}
+                    className={idx === 0 ? 'leader-row' : ''}
+                  >
+                    <td>{`#${idx + 1}`}</td>
+                    <td>{item.high_scorer}</td>
+                    <td>{item.high_score}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : highScore > 0 ? (
             <table className="scores-table">
               <thead>
                 <tr>
@@ -79,23 +102,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
                 </tr>
               </tbody>
             </table>
-          </div>
-        )}
-
-        {topScores.length > 0 && (
-          <div className="top-scores-card">
-            <div className="label">Top Scores</div>
-            <div className="top-scores-list">
-              {topScores.map((item, idx) => (
-                <div key={idx} className="top-score-item">
-                  <span className="rank">#{idx + 1}</span>
-                  <span className="username">{item.username}</span>
-                  <span className="score">{item.score}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+          ) : (
+            <p className="no-scores">No scores yet. Be the first!</p>
+          )}
+        </div>
       </div>
 
       <Toggle />

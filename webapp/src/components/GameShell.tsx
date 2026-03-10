@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { Vocab } from '../services';
+import type { Vocab, Score } from '../services';
 import HomeScreen from './HomeScreen';
 import CompletionScreen from './CompletionScreen';
 import FlashcardSection from './FlashcardSection';
@@ -11,6 +11,7 @@ interface GameShellProps {
   vocabs: Vocab[];
   highScore: number;
   highScorer: string;
+  topScores: Score[];
   onScoreInsert: (score: number, name: string) => Promise<any>;
   onRefreshHighScore?: () => void;
 }
@@ -19,6 +20,7 @@ export const GameShell: React.FC<GameShellProps> = ({
   vocabs,
   highScore,
   highScorer,
+  topScores,
   onScoreInsert,
   onRefreshHighScore,
 }) => {
@@ -54,7 +56,7 @@ export const GameShell: React.FC<GameShellProps> = ({
             onSelectMode={handleModeSelect}
             highScore={highScore}
             highScorer={highScorer}
-            topScores={vocabs.length > 0 ? [] : []}
+            topScores={topScores}
           />
         );
 
