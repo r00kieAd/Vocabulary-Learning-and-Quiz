@@ -1,6 +1,7 @@
 import API from '../config/endpoints.json';
 import { axiosInstance, handleError } from './types';
 import type { ApiResponse, Score } from './types';
+import type { AxiosError } from 'axios';
 
 /**
  * Fetch the top high scores
@@ -18,6 +19,11 @@ export async function fetchHighScores(): Promise<ApiResponse<Score[]>> {
       resp: 'Failed to fetch high scores',
     };
   } catch (error) {
+    const axiosError = error as AxiosError;
+    if (axiosError?.response?.status === 404) {
+      // Treat missing high score list as an empty leaderboard
+      return { status: true, data: [] };
+    }
     return handleError(error);
   }
 }

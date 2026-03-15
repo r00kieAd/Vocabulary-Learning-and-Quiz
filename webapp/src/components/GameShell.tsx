@@ -28,6 +28,16 @@ export const GameShell: React.FC<GameShellProps> = ({
   const [quizScore, setQuizScore] = useState(0);
   const [totalQuestionsInQuiz, setTotalQuestionsInQuiz] = useState(0);
   const [playerName, setPlayerName] = useState('');
+  const handleQuizComplete = async (score: number, username: string) => {
+    try {
+      await onScoreInsert(score, username);
+      if (onRefreshHighScore) {
+        await onRefreshHighScore();
+      }
+    } catch (error) {
+      console.error('Failed to submit score', error);
+    }
+  };
 
   // Persist learned words to localStorage whenever they change
   useEffect(() => {
@@ -64,7 +74,12 @@ export const GameShell: React.FC<GameShellProps> = ({
         return <FlashcardSection onExit={handleReturnHome} />;
 
       case 'quiz-section':
-        return <QuizSection onExit={handleReturnHome} />;
+        return (
+          <QuizSection
+            onExit={handleReturnHome}
+            onQuizComplete={handleQuizComplete}
+          />
+        );
 
       case 'completion':
         return (

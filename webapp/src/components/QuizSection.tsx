@@ -76,12 +76,13 @@ const buildQuizOptions = (word: VocabWord, allWords: VocabWord[]): QuizOption[] 
 
 interface QuizSectionProps {
   onExit: () => void;
+  onQuizComplete?: (score: number, username: string) => Promise<void>;
 }
 
 type QuizFlowStep = 'username' | 'category-selection' | 'count-selection' | 'quiz' | 'results';
 type QuizMode = 'all' | 'learned' | string; // 'all', 'learned', or specific word type
 
-export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
+export const QuizSection: React.FC<QuizSectionProps> = ({ onExit, onQuizComplete }) => {
   const {
     username,
     isLoading: usernameLoading,
@@ -482,6 +483,11 @@ export const QuizSection: React.FC<QuizSectionProps> = ({ onExit }) => {
         onQuizEnd={(score) => {
           setQuizScore(score);
           setCurrentStep('results');
+          if (onQuizComplete && username) {
+            onQuizComplete(score, username).catch((err) => {
+              console.error('Failed to submit score', err);
+            });
+          }
         }}
         onQuit={() => {
           setQuizQuestions([]);
