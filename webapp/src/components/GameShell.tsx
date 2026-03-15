@@ -14,6 +14,8 @@ interface GameShellProps {
   topScores: Score[];
   onScoreInsert: (score: number, name: string) => Promise<any>;
   onRefreshHighScore?: () => void;
+  onManualRefreshHighScores: () => void;
+  isRefreshingHighScores: boolean;
 }
 
 export const GameShell: React.FC<GameShellProps> = ({
@@ -23,6 +25,8 @@ export const GameShell: React.FC<GameShellProps> = ({
   topScores,
   onScoreInsert,
   onRefreshHighScore,
+  onManualRefreshHighScores,
+  isRefreshingHighScores,
 }) => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('home');
   const [quizScore, setQuizScore] = useState(0);
@@ -67,6 +71,8 @@ export const GameShell: React.FC<GameShellProps> = ({
             highScore={highScore}
             highScorer={highScorer}
             topScores={topScores}
+            onRefreshHighScores={onManualRefreshHighScores}
+            isRefreshingHighScores={isRefreshingHighScores}
           />
         );
 

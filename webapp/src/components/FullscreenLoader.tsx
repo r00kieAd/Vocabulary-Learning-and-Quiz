@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import power from '../assets/power.png';
+import React, { useEffect, useMemo, useState } from 'react';
+import power from '../assets/server.svg';
 import { useGlobal } from '../context/globalContext';
 
 export const FullscreenLoader: React.FC = () => {
@@ -7,31 +7,45 @@ export const FullscreenLoader: React.FC = () => {
   const [loadingText, setLoadingText] = useState<string>("Please wait, connecting to server.");
   const [textChanged, setTextChanged] = useState<boolean>(false);
 
-    const [color1, setColor1] = useState<string>('');
-    const [color2, setColor2] = useState<string>('');
-    const [color3, setColor3] = useState<string>('');
-    const { activeTheme } = useGlobal();
-    useEffect(() => {
-      const styles = getComputedStyle(document.documentElement);
-      setColor1(styles.getPropertyValue('--accent-primary'));
-      setColor2(styles.getPropertyValue('--accent-secondary'));
-      setColor3(styles.getPropertyValue('--accent-dark-blue'));
-    }, [activeTheme])
-
+  const [gradientStart, setGradientStart] = useState<string>('');
+  const [gradientEnd, setGradientEnd] = useState<string>('');
+  const { activeTheme } = useGlobal();
   useEffect(() => {
-    setTimeout(() => {
-      if (textChanged) {
-        setLoadingText("Please wait, connecting to server.");
-        setTextChanged(true);
-      } else {
-        setLoadingText("Waking up server, this may take upto 90s.");
-        setTextChanged(false);
-      }
+    const styles = getComputedStyle(document.documentElement);
+    setGradientStart(styles.getPropertyValue('--bg-gradient-start'));
+    setGradientEnd(styles.getPropertyValue('--bg-gradient-end'));
+  }, [activeTheme]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTextChanged((prev) => {
+        const next = !prev;
+        setLoadingText(
+          next
+            ? 'Please wait, connecting to server.'
+            : 'Waking up server, this may take upto 90s.'
+        );
+        return next;
+      });
     }, 5000);
-  }, [])
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const gradientStyle = useMemo(() => {
+    const start = gradientStart.trim();
+    const end = gradientEnd.trim();
+
+    if (start && end) {
+      return {
+        background: `linear-gradient(135deg, ${start} 0%, ${end} 100%)`,
+      };
+    }
+
+    return undefined;
+  }, [gradientStart, gradientEnd]);
 
   return (
-    <div className="fullscreen-loader">
+    <div className="fullscreen-loader" style={gradientStyle}>
       <div className="loading-div">
         <div className="loading-img"><img src={power} alt="" /></div>
         <div className="text">{loadingText}<span className="ellipses"></span></div>

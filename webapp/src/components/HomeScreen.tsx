@@ -10,6 +10,8 @@ interface HomeScreenProps {
   highScore: number;
   highScorer: string;
   topScores: Score[];
+  onRefreshHighScores: () => void;
+  isRefreshingHighScores: boolean;
 }
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -17,6 +19,8 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
   highScore,
   highScorer,
   topScores,
+  onRefreshHighScores,
+  isRefreshingHighScores,
 }) => {
   const [color1, setColor1] = useState<string>('');
   const [color2, setColor2] = useState<string>('');
@@ -64,9 +68,29 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 
       <div className="scores-section">
         <div className="high-score-card">
-          <div className="label">Leaderboard</div>
-          {topScores.length > 0 ? (
-            <table className="scores-table">
+          <div className="high-score-card-header">
+            <span className="label">
+              {isRefreshingHighScores ? 'refreshing...' : 'Leaderboard'}
+            </span>
+            <button
+              type="button"
+              className="refresh-button"
+              onClick={onRefreshHighScores}
+              disabled={isRefreshingHighScores}
+            >
+              <i
+                className={`fa-solid fa-arrows-rotate ${
+                  isRefreshingHighScores ? 'fa-spin' : ''
+                }`}
+              ></i>
+            </button>
+          </div>
+          <div className="high-score-card-content">
+            {isRefreshingHighScores && (
+              <div className="high-score-mask" aria-hidden="true" />
+            )}
+            {topScores.length > 0 ? (
+              <table className="scores-table">
               <thead>
                 <tr>
                   <th>Rank</th>
@@ -105,6 +129,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
           ) : (
             <p className="no-scores">No scores yet. Be the first!</p>
           )}
+          </div>
         </div>
       </div>
 

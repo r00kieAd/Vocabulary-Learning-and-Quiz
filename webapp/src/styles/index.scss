@@ -1553,14 +1553,55 @@ button {
     padding: var(--spacing-lg);
     box-shadow: var(--shadow-soft);
     width: 100%;
+    position: relative;
+
+    .high-score-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-md);
+    }
 
     .label {
       color: var(--accent-dark-blue);
       font-size: var(--font-sm);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: var(--spacing-md);
+      margin: 0;
       font-weight: 700;
+    }
+
+    .refresh-button {
+      background: transparent;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-btn);
+      padding: 0.35rem 0.65rem;
+      color: var(--accent-primary);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+    }
+
+    .refresh-button:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    .high-score-card-content {
+      position: relative;
+    }
+
+    .high-score-mask {
+      position: absolute;
+      inset: 0;
+      background: color-mix(in srgb, var(--bg-light) 70%, transparent);
+      border-radius: inherit;
+      z-index: 5;
+      pointer-events: none;
     }
 
     .scores-table {
