@@ -13,22 +13,39 @@ export const PingGate: React.FC = () => {
   const [vocabs, setVocabs] = useState<Vocab[]>([]);
   const [highScore, setHighScore] = useState<Score | null>(null);
   const [topScores, setTopScores] = useState<Score[]>([]);
+  const [isRefreshingHighScores, setIsRefreshingHighScores] =
+    useState(false);
 
-  const refreshHighScore = async () => {
+  const updateHighScores = async (options?: {
+    showLoading?: boolean;
+  }): Promise<void> => {
+    if (options?.showLoading) {
+      setIsRefreshingHighScores(true);
+    }
+
     try {
       const highScoreResult = await fetchHighScores();
-      if (highScoreResult.status && highScoreResult.data && highScoreResult.data.length > 0) {
+      if (highScoreResult.status && highScoreResult.data) {
         const sorted = [...highScoreResult.data].sort(
           (a, b) => b.high_score - a.high_score
         );
         const topThree = sorted.slice(0, 3);
         setTopScores(topThree);
-        setHighScore(topThree[0]);
+        setHighScore(topThree[0] || null);
+      } else {
+        setTopScores([]);
+        setHighScore(null);
       }
     } catch (err) {
       console.error('Failed to refresh high score:', err);
+    } finally {
+      if (options?.showLoading) {
+        setIsRefreshingHighScores(false);
+      }
     }
   };
+
+  const refreshHighScore = () => updateHighScores({ showLoading: true });
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -42,10 +59,9 @@ export const PingGate: React.FC = () => {
         }
 
         // Step 2: Fetch vocabs and scores in parallel
-        const [vocabsResult, , highScoreResult] = await Promise.all([
+        const [vocabsResult] = await Promise.all([
           fetchVocabs(),
           fetchScores(),
-          fetchHighScores(),
         ]);
 
         if (!vocabsResult.status || !vocabsResult.data) {
@@ -55,15 +71,7 @@ export const PingGate: React.FC = () => {
         }
 
         setVocabs(vocabsResult.data);
-        
-        if (highScoreResult.status && highScoreResult.data?.length) {
-          const sorted = [...highScoreResult.data].sort(
-            (a, b) => b.high_score - a.high_score
-          );
-          const topThree = sorted.slice(0, 3);
-          setTopScores(topThree);
-          setHighScore(topThree[0] || null);
-        }
+        await updateHighScores();
 
         setAppState('ready');
       } catch (err) {
@@ -96,7 +104,9 @@ export const PingGate: React.FC = () => {
         highScorer={highScore?.high_scorer || 'None'}
         topScores={topScores}
         onScoreInsert={insertScore}
-        onRefreshHighScore={refreshHighScore}
+        onRefreshHighScore={() => updateHighScores()}
+        onManualRefreshHighScores={refreshHighScore}
+        isRefreshingHighScores={isRefreshingHighScores}
       />
     );
   };
